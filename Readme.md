@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Олег Федоров](https://up.htmlacademy.ru/javascript/19/user/834749).
-* Наставник: `Неизвестно`.
+* Наставник: [Александр Гулевских](https://htmlacademy.ru/profile/id1025921).
 
 ---
 

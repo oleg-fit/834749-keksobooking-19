@@ -75,10 +75,12 @@ var author = {
   avatar: 'img/avatars/user0' + randomInteger(1, 8) + '.png' // сделано
 };
 
+
 var map = document.querySelector('.map');
 var mapWidth = map.offsetWidth;
-var minLocationXMap = map.offsetLeft;
-var maxLocationXMap = map.offsetLeft + mapWidth;
+var pinWidth = 50;
+var minLocationXMap = 0;
+var maxLocationXMap = mapWidth - pinWidth;
 
 // все исчезает с кодом нижу
 // var location = {

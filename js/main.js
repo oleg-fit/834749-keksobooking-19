@@ -1,6 +1,6 @@
 'use strict';
 
-// var MAX_ADVERTISEMENT_QUANTITY = 8;
+var MAX_ADVERTISEMENT_QUANTITY = 8;
 var TITLE = 'Заголовок';
 var MAX_PRICE = 1000000;
 var MAX_ROOMS = 5;
@@ -71,48 +71,56 @@ function choosingRandomArr(arr) {
 }
 
 
-// var author = {
-//   avatar: 'img/avatars/user0' + randomInteger(1, 8) + '.png' // сделано
-// };
-
-
 var map = document.querySelector('.map');
 var mapWidth = map.offsetWidth;
 var pinWidth = 50;
 var minLocationXMap = 0;
 var maxLocationXMap = mapWidth - pinWidth;
 
-// все исчезает с кодом нижу
-// var location = {
-//   x: randomInteger(minLocationXMap, maxLocationXMap),
-//   y: randomInteger(130, 630)
-// };
 
+// Функция для создания одного JS объектов.
+var creatAdvertisementItem = function () {
+  var advertisementListItem = {};
 
-var offer = {
-  title: TITLE, // сделано
-  address: location.x + ', ' + location.y, // не сделано
-  price: randomInteger(0, MAX_PRICE), // сделано
-  type: choosingRandomValue(type), // сделано
-  rooms: randomInteger(1, MAX_ROOMS), // сделано
-  guests: randomInteger(0, MAX_GUESTS), // сделано
-  checkin: choosingRandomValue(checkin), // сделано
-  checkout: choosingRandomValue(checkout), // сделано
-  features: choosingRandomArr(features), // сделано
-  description: DESCRIPTION, // сделано
-  photos: choosingRandomArr(photos) // сделано
+  advertisementListItem['author'] = {
+    avatar: 'img/avatars/user0' + randomInteger(1, 8) + '.png'
+  };
+
+  advertisementListItem['locationPin'] = {
+    x: randomInteger(minLocationXMap, maxLocationXMap),
+    y: randomInteger(130, 630)
+  };
+
+  var locationPinX = advertisementListItem.locationPin.x;
+  var locationPinY = advertisementListItem.locationPin.y;
+
+  advertisementListItem['offer'] = {
+    title: TITLE,
+    address: locationPinX + ', ' + locationPinY,
+    price: randomInteger(0, MAX_PRICE),
+    type: choosingRandomValue(type),
+    rooms: randomInteger(1, MAX_ROOMS),
+    guests: randomInteger(0, MAX_GUESTS),
+    checkin: choosingRandomValue(checkin),
+    checkout: choosingRandomValue(checkout),
+    features: choosingRandomArr(features),
+    description: DESCRIPTION,
+    photos: choosingRandomArr(photos)
+  };
+
+  return advertisementListItem;
 };
 
 
 // Функция для создания массива из 8 сгенерированных JS объектов.
-// var creatAdvertisement = function () {
-//   var advertisementList = [];
-//   for (var i = 0; i < MAX_ADVERTISEMENT_QUANTITY; i++) {
-
-//   }
-//   return advertisementList;
-// };
-
+var creatAdvertisement = function () {
+  var advertisementList = [];
+  for (var i = 0; i < MAX_ADVERTISEMENT_QUANTITY; i++) {
+    advertisementList.push(creatAdvertisementItem());
+  }
+  return advertisementList;
+};
+// console.log(creatAdvertisement());
 
 // Удаляем лишний класс у блока
 map.classList.remove('map--faded');
@@ -121,8 +129,9 @@ map.classList.remove('map--faded');
 // Создаем шаблон и вставляем его на страницу
 var mapPins = document.querySelector('.map__pins');
 var templatePin = document.querySelector('#pin').content.querySelector('.map__pin');
+var advertisementList = creatAdvertisement();
 
-for (var i = 0; i < 8; i++) {
+for (var i = 0; i < MAX_ADVERTISEMENT_QUANTITY; i++) {
   var pinElement = templatePin.cloneNode(true);
 
   // var pinElementWidth = pinElement.offsetWidth;
@@ -131,10 +140,10 @@ for (var i = 0; i < 8; i++) {
   // console.log(pinElementHeight);
 
 
-  pinElement.style.left = randomInteger(minLocationXMap, maxLocationXMap) + 'px';
-  pinElement.style.top = randomInteger(130, 630) + 'px';
-  pinElement.querySelector('img').src = 'img/avatars/user0' + randomInteger(1, 8) + '.png';
-  pinElement.querySelector('img').alt = offer.title;
+  pinElement.style.left = advertisementList[i].locationPin.x + 'px';
+  pinElement.style.top = advertisementList[i].locationPin.y + 'px';
+  pinElement.querySelector('img').src = advertisementList[i].author.avatar;
+  pinElement.querySelector('img').alt = advertisementList[i].offer.title;
 
   mapPins.appendChild(pinElement);
 }

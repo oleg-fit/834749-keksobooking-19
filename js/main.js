@@ -131,43 +131,21 @@ var mapPins = document.querySelector('.map__pins');
 var templatePin = document.querySelector('#pin').content.querySelector('.map__pin');
 var advertisementList = creatAdvertisement();
 
-for (var i = 0; i < MAX_ADVERTISEMENT_QUANTITY; i++) {
+var renderPin = function (arr) {
   var pinElement = templatePin.cloneNode(true);
 
-  // var pinElementWidth = pinElement.offsetWidth;
-  // var pinElementHeight = pinElement.offsetHeight;
-  // console.log(pinElementWidth);
-  // console.log(pinElementHeight);
+  pinElement.style.left = arr.locationPin.x + 'px';
+  pinElement.style.top = arr.locationPin.y + 'px';
+  pinElement.querySelector('img').src = arr.author.avatar;
+  pinElement.querySelector('img').alt = arr.offer.title;
 
+  return pinElement;
+};
 
-  pinElement.style.left = advertisementList[i].locationPin.x + 'px';
-  pinElement.style.top = advertisementList[i].locationPin.y + 'px';
-  pinElement.querySelector('img').src = advertisementList[i].author.avatar;
-  pinElement.querySelector('img').alt = advertisementList[i].offer.title;
+var fragment = document.createDocumentFragment();
 
-  mapPins.appendChild(pinElement);
+for (var i = 0; i < MAX_ADVERTISEMENT_QUANTITY; i++) {
+  fragment.appendChild(renderPin(advertisementList[i]));
 }
 
-// var renderPin = function() {
-//   var pinElement = templatePin.cloneNode(true);
-
-// var pinElementWidth = pinElement.offsetWidth;
-// var pinElementHeight = pinElement.offsetHeight;
-// console.log(pinElementWidth);
-// console.log(pinElementHeight);
-
-
-//   pinElement.style.left = randomInteger(minLocationXMap, maxLocationXMap) + 'px';
-//   pinElement.style.top = randomInteger(130, 630) + 'px';
-//   pinElement.querySelector('img').src = 'img/avatars/user0' + randomInteger(1, 7) + '.png';
-//   pinElement.querySelector('img').alt = offer.title;
-
-//   return pinElement;
-// };
-
-// var fragment = document.createDocumentFragment();
-// for (var i = 0; i < 8; i++) {
-//   fragment.appendChild(renderPin(pinElement[i]));
-// }
-
-// similarListElement.appendChild(fragment);
+mapPins.appendChild(fragment);

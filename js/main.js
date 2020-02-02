@@ -1,6 +1,6 @@
 'use strict';
 
-var MAX_ADVERTISEMENT_QUANTITY = 8;
+// var MAX_ADVERTISEMENT_QUANTITY = 8;
 var TITLE = 'Заголовок';
 var MAX_PRICE = 1000000;
 var MAX_ROOMS = 5;
@@ -55,7 +55,7 @@ var choosingRandomValue = function (arr) {
 
 
 // Функция для создания массива со случайным кол-вом элементов из предложенного массива
-function choosingRandomArr (arr) {
+function choosingRandomArr(arr) {
   var arrQuantity = 1 + Math.floor(Math.random() * (arr.length - 1));
   var arrPart = [];
   var arrIndex = 0;
@@ -71,9 +71,9 @@ function choosingRandomArr (arr) {
 }
 
 
-var author = {
-  avatar: 'img/avatars/user0' + randomInteger(1, 8) + '.png' // сделано
-};
+// var author = {
+//   avatar: 'img/avatars/user0' + randomInteger(1, 8) + '.png' // сделано
+// };
 
 
 var map = document.querySelector('.map');
@@ -139,25 +139,13 @@ for (var i = 0; i < 8; i++) {
   mapPins.appendChild(pinElement);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 // var renderPin = function() {
 //   var pinElement = templatePin.cloneNode(true);
 
-  // var pinElementWidth = pinElement.offsetWidth;
-  // var pinElementHeight = pinElement.offsetHeight;
-  // console.log(pinElementWidth);
-  // console.log(pinElementHeight);
+// var pinElementWidth = pinElement.offsetWidth;
+// var pinElementHeight = pinElement.offsetHeight;
+// console.log(pinElementWidth);
+// console.log(pinElementHeight);
 
 
 //   pinElement.style.left = randomInteger(minLocationXMap, maxLocationXMap) + 'px';

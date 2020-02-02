@@ -43,7 +43,7 @@ var photos = [
 
 // Функция для создания случайного числа от min до max
 function randomInteger(min, max) {
-  var rand = min + Math.random() * (max - min + 1);
+  var rand = min + Math.random() * (max - min);
   return Math.round(rand);
 }
 
@@ -82,8 +82,9 @@ var maxLocationXMap = mapWidth - pinWidth;
 var creatAdvertisementItem = function () {
   var advertisementListItem = {};
 
+
   advertisementListItem['author'] = {
-    avatar: 'img/avatars/user0' + randomInteger(1, 8) + '.png'
+    avatar: 'img/avatars/user0' + (i + 1) + '.png'
   };
 
   advertisementListItem['locationPin'] = {
@@ -120,7 +121,51 @@ var creatAdvertisement = function () {
   }
   return advertisementList;
 };
+
+
+// ====================================================== Тест
+// var creatAdvertisement = function () {
+//   var advertisementList = [];
+
+//   for (var i = 0; i < MAX_ADVERTISEMENT_QUANTITY; i++) {
+
+//     advertisementList.push(function () {
+//       var advertisementListItem = {};
+
+
+//       advertisementListItem['author'] = {
+//         avatar: 'img/avatars/user0' + (i + 1) + '.png'
+//       };
+
+//       advertisementListItem['locationPin'] = {
+//         x: randomInteger(minLocationXMap, maxLocationXMap),
+//         y: randomInteger(130, 630)
+//       };
+
+//       var locationPinX = advertisementListItem.locationPin.x;
+//       var locationPinY = advertisementListItem.locationPin.y;
+
+//       advertisementListItem['offer'] = {
+//         title: TITLE,
+//         address: locationPinX + ', ' + locationPinY,
+//         price: randomInteger(0, MAX_PRICE),
+//         type: choosingRandomValue(type),
+//         rooms: randomInteger(1, MAX_ROOMS),
+//         guests: randomInteger(0, MAX_GUESTS),
+//         checkin: choosingRandomValue(checkin),
+//         checkout: choosingRandomValue(checkout),
+//         features: choosingRandomArr(features),
+//         description: DESCRIPTION,
+//         photos: choosingRandomArr(photos)
+//       };
+
+//       return advertisementListItem;
+//     });
+//   }
+//   return advertisementList;
+// };
 // console.log(creatAdvertisement());
+// ====================================================== Тест
 
 // Удаляем лишний класс у блока
 map.classList.remove('map--faded');

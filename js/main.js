@@ -194,15 +194,9 @@ var renderCards = function (arr) {
   // Аватар пользователя
   cardElement.querySelector('.popup__avatar').src = arr[0].author.avatar;
 
+  // mapFiltersContainer.parentNode.insertBefore(cardElement, mapFiltersContainer);
   return cardElement;
 };
-// console.log(renderCards(creatAdvertisement()));
 
-// Ни чего не происходит
-fragment = document.createDocumentFragment();
-
-for (var k = 0; i < MAX_ADVERTISEMENT_QUANTITY; k++) {
-  fragment.appendChild(renderCards(advertisementList[k]));
-}
-
-map.insertBefore(fragment, mapFiltersContainer);
+mapFiltersContainer.parentNode.insertBefore(renderCards(advertisementList), mapFiltersContainer);
+// renderCards();

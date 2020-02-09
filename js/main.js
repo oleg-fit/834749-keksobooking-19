@@ -205,6 +205,7 @@ var form = document.querySelector('.ad-form');
 var formInputs = form.querySelectorAll('input');
 var formSelects = form.querySelectorAll('select');
 var formTextareas = form.querySelectorAll('textarea');
+var ENTER_KEY = 'Enter';
 
 var addAttributeFormElements = function (arr) {
   for (var j = 0; j < arr.length; j++) {
@@ -222,10 +223,25 @@ addAttributeFormElements(formInputs);
 addAttributeFormElements(formSelects);
 addAttributeFormElements(formTextareas);
 
-mapPinMain.addEventListener('mousedown', function () {
+var activePage = function () {
   showMap();
   form.classList.remove('ad-form--disabled');
   removeAttributeFormElements(formInputs);
   removeAttributeFormElements(formSelects);
   removeAttributeFormElements(formTextareas);
+};
+
+mapPinMain.addEventListener('mousedown', activePage);
+
+// Не работает проверка на нажатие левой кнопки мыши
+// mapPinMain.addEventListener('mousedown', function (evt) {
+//   if (evt.instanceOfMouseEvent.button === 0) {
+//     activePage();
+//   }
+// });
+
+mapPinMain.addEventListener('keydown', function (evt) {
+  if (evt.key === ENTER_KEY) {
+    activePage();
+  }
 });

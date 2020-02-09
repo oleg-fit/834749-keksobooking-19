@@ -1,6 +1,6 @@
 'use strict';
 
-// Задание module3-task2
+// Задание module3-task2===========================================================================================================
 var map = document.querySelector('.map');
 var MAX_ADVERTISEMENT_QUANTITY = 8;
 var TITLE = 'Заголовок';
@@ -141,62 +141,91 @@ for (var i = 0; i < MAX_ADVERTISEMENT_QUANTITY; i++) {
 }
 
 mapPins.appendChild(fragment);
-showMap();
 
-// Задание module3-task3
-var mapFiltersContainer = document.querySelector('.map__filters-container');
-var templateCard = document.querySelector('#card').content.querySelector('.map__card');
+// Задание module3-task3===========================================================================================================
+// var mapFiltersContainer = document.querySelector('.map__filters-container');
+// var templateCard = document.querySelector('#card').content.querySelector('.map__card');
 
 
-var renderCards = function (arr) {
-  var cardElement = templateCard.cloneNode(true);
-  var typeOfHousing = cardElement.querySelector('.popup__type');
-  var roomsCapacity = cardElement.querySelector('.popup__text--capacity');
-  var strRoomsFor = ' комнаты для ';
-  var strGuests = ' гостей';
+// var renderCards = function (arr) {
+//   var cardElement = templateCard.cloneNode(true);
+//   var typeOfHousing = cardElement.querySelector('.popup__type');
+//   var roomsCapacity = cardElement.querySelector('.popup__text--capacity');
+//   var strRoomsFor = ' комнаты для ';
+//   var strGuests = ' гостей';
 
-  cardElement.querySelector('.popup__title').textContent = arr[0].offer.title;
-  cardElement.querySelector('.popup__text--address').textContent = arr[0].offer.address;
-  cardElement.querySelector('.popup__text--price').textContent = arr[0].offer.price + 'P/ночь';
+//   cardElement.querySelector('.popup__title').textContent = arr[0].offer.title;
+//   cardElement.querySelector('.popup__text--address').textContent = arr[0].offer.address;
+//   cardElement.querySelector('.popup__text--price').textContent = arr[0].offer.price + 'P/ночь';
 
-  // Условия для типа жилья
-  if (arr[0].offer.type === 'palace') {
-    typeOfHousing.textContent = 'Дворец';
-  } else if (arr[0].offer.type === 'flat') {
-    typeOfHousing.textContent = 'Квартира';
-  } else if (arr[0].offer.type === 'house') {
-    typeOfHousing.textContent = 'Дом';
-  } else {
-    typeOfHousing.textContent = 'Бунгало';
+// Условия для типа жилья
+// if (arr[0].offer.type === 'palace') {
+//   typeOfHousing.textContent = 'Дворец';
+// } else if (arr[0].offer.type === 'flat') {
+//   typeOfHousing.textContent = 'Квартира';
+// } else if (arr[0].offer.type === 'house') {
+//   typeOfHousing.textContent = 'Дом';
+// } else {
+//   typeOfHousing.textContent = 'Бунгало';
+// }
+
+// Количество гостей и комнат
+// if (arr[0].offer.rooms === 1) {
+//   strRoomsFor = ' комната для ';
+// } else if (arr[0].offer.rooms > 4) {
+//   strRoomsFor = ' комнат для ';
+// }
+// if (arr[0].offer.guests === 1) {
+//   strGuests = ' гостя';
+// }
+// roomsCapacity.textContent = arr[0].offer.rooms + strRoomsFor + arr[0].offer.guests + strGuests;
+
+// Время заезда и выезда
+// cardElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + arr[0].offer.checkin + ', выезд до ' + arr[0].offer.checkout;
+
+// Все доступные удобства Не сделано!!!!!!
+
+// Описание объекта недвижимости
+// cardElement.querySelector('.popup__description').textContent = arr[0].offer.description;
+
+// Все фотографии из списка Не сделано!!!!!
+
+// Аватар пользователя
+// cardElement.querySelector('.popup__avatar').src = arr[0].author.avatar;
+
+// return cardElement;
+// };
+
+// mapFiltersContainer.parentNode.insertBefore(renderCards(advertisementList), mapFiltersContainer);
+
+
+// Задание module4-task2==========================================================================================================
+var mapPinMain = document.querySelector('.map__pin--main');
+var form = document.querySelector('.ad-form');
+var formInputs = form.querySelectorAll('input');
+var formSelects = form.querySelectorAll('select');
+var formTextareas = form.querySelectorAll('textarea');
+
+var addAttributeFormElements = function (arr) {
+  for (var j = 0; j < arr.length; j++) {
+    arr[j].setAttribute('disabled', 'disabled');
   }
-
-  // Количество гостей и комнат
-  if (arr[0].offer.rooms === 1) {
-    strRoomsFor = ' комната для ';
-  } else if (arr[0].offer.rooms > 4) {
-    strRoomsFor = ' комнат для ';
-  }
-  if (arr[0].offer.guests === 1) {
-    strGuests = ' гостя';
-  }
-  roomsCapacity.textContent = arr[0].offer.rooms + strRoomsFor + arr[0].offer.guests + strGuests;
-
-  // Время заезда и выезда
-  cardElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + arr[0].offer.checkin + ', выезд до ' + arr[0].offer.checkout;
-
-  // Все доступные удобства Не сделано!!!!!!
-
-  // Описание объекта недвижимости
-  cardElement.querySelector('.popup__description').textContent = arr[0].offer.description;
-
-  // Все фотографии из списка Не сделано!!!!!
-
-  // Аватар пользователя
-  cardElement.querySelector('.popup__avatar').src = arr[0].author.avatar;
-
-  // mapFiltersContainer.parentNode.insertBefore(cardElement, mapFiltersContainer);
-  return cardElement;
 };
 
-mapFiltersContainer.parentNode.insertBefore(renderCards(advertisementList), mapFiltersContainer);
-// renderCards();
+var removeAttributeFormElements = function (arr) {
+  for (var j = 0; j < arr.length; j++) {
+    arr[j].removeAttribute('disabled', 'disabled');
+  }
+};
+
+addAttributeFormElements(formInputs);
+addAttributeFormElements(formSelects);
+addAttributeFormElements(formTextareas);
+
+mapPinMain.addEventListener('mousedown', function () {
+  showMap();
+  form.classList.remove('ad-form--disabled');
+  removeAttributeFormElements(formInputs);
+  removeAttributeFormElements(formSelects);
+  removeAttributeFormElements(formTextareas);
+});

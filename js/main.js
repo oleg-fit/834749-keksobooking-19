@@ -1,6 +1,6 @@
 'use strict';
 
-// Задание module3-task2
+// Задание module3-task2===========================================================================================================
 var map = document.querySelector('.map');
 var MAX_ADVERTISEMENT_QUANTITY = 8;
 var TITLE = 'Заголовок';
@@ -109,13 +109,6 @@ var creatAdvertisement = function () {
   return advertisementList;
 };
 
-
-// Функция для показа карты
-var showMap = function () {
-  map.classList.remove('map--faded');
-};
-
-
 // Создаем шаблон и вставляем его на страницу и показываем карту
 var mapPins = document.querySelector('.map__pins');
 var templatePin = document.querySelector('#pin').content.querySelector('.map__pin');
@@ -141,62 +134,59 @@ for (var i = 0; i < MAX_ADVERTISEMENT_QUANTITY; i++) {
 }
 
 mapPins.appendChild(fragment);
-showMap();
 
-// Задание module3-task3
-var mapFiltersContainer = document.querySelector('.map__filters-container');
-var templateCard = document.querySelector('#card').content.querySelector('.map__card');
+// Задание module3-task3===========================================================================================================
+// var mapFiltersContainer = document.querySelector('.map__filters-container');
+// var templateCard = document.querySelector('#card').content.querySelector('.map__card');
 
 
-var renderCards = function (arr) {
-  var cardElement = templateCard.cloneNode(true);
-  var typeOfHousing = cardElement.querySelector('.popup__type');
-  var roomsCapacity = cardElement.querySelector('.popup__text--capacity');
-  var strRoomsFor = ' комнаты для ';
-  var strGuests = ' гостей';
+// var renderCards = function (arr) {
+//   var cardElement = templateCard.cloneNode(true);
+//   var typeOfHousing = cardElement.querySelector('.popup__type');
+//   var roomsCapacity = cardElement.querySelector('.popup__text--capacity');
+//   var strRoomsFor = ' комнаты для ';
+//   var strGuests = ' гостей';
 
-  cardElement.querySelector('.popup__title').textContent = arr[0].offer.title;
-  cardElement.querySelector('.popup__text--address').textContent = arr[0].offer.address;
-  cardElement.querySelector('.popup__text--price').textContent = arr[0].offer.price + 'P/ночь';
+//   cardElement.querySelector('.popup__title').textContent = arr[0].offer.title;
+//   cardElement.querySelector('.popup__text--address').textContent = arr[0].offer.address;
+//   cardElement.querySelector('.popup__text--price').textContent = arr[0].offer.price + 'P/ночь';
 
-  // Условия для типа жилья
-  if (arr[0].offer.type === 'palace') {
-    typeOfHousing.textContent = 'Дворец';
-  } else if (arr[0].offer.type === 'flat') {
-    typeOfHousing.textContent = 'Квартира';
-  } else if (arr[0].offer.type === 'house') {
-    typeOfHousing.textContent = 'Дом';
-  } else {
-    typeOfHousing.textContent = 'Бунгало';
-  }
+// Условия для типа жилья
+// if (arr[0].offer.type === 'palace') {
+//   typeOfHousing.textContent = 'Дворец';
+// } else if (arr[0].offer.type === 'flat') {
+//   typeOfHousing.textContent = 'Квартира';
+// } else if (arr[0].offer.type === 'house') {
+//   typeOfHousing.textContent = 'Дом';
+// } else {
+//   typeOfHousing.textContent = 'Бунгало';
+// }
 
-  // Количество гостей и комнат
-  if (arr[0].offer.rooms === 1) {
-    strRoomsFor = ' комната для ';
-  } else if (arr[0].offer.rooms > 4) {
-    strRoomsFor = ' комнат для ';
-  }
-  if (arr[0].offer.guests === 1) {
-    strGuests = ' гостя';
-  }
-  roomsCapacity.textContent = arr[0].offer.rooms + strRoomsFor + arr[0].offer.guests + strGuests;
+// Количество гостей и комнат
+// if (arr[0].offer.rooms === 1) {
+//   strRoomsFor = ' комната для ';
+// } else if (arr[0].offer.rooms > 4) {
+//   strRoomsFor = ' комнат для ';
+// }
+// if (arr[0].offer.guests === 1) {
+//   strGuests = ' гостя';
+// }
+// roomsCapacity.textContent = arr[0].offer.rooms + strRoomsFor + arr[0].offer.guests + strGuests;
 
-  // Время заезда и выезда
-  cardElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + arr[0].offer.checkin + ', выезд до ' + arr[0].offer.checkout;
+// Время заезда и выезда
+// cardElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + arr[0].offer.checkin + ', выезд до ' + arr[0].offer.checkout;
 
-  // Все доступные удобства Не сделано!!!!!!
+// Все доступные удобства Не сделано!!!!!!
 
-  // Описание объекта недвижимости
-  cardElement.querySelector('.popup__description').textContent = arr[0].offer.description;
+// Описание объекта недвижимости
+// cardElement.querySelector('.popup__description').textContent = arr[0].offer.description;
 
-  // Все фотографии из списка Не сделано!!!!!
+// Все фотографии из списка Не сделано!!!!!
 
-  // Аватар пользователя
-  cardElement.querySelector('.popup__avatar').src = arr[0].author.avatar;
+// Аватар пользователя
+// cardElement.querySelector('.popup__avatar').src = arr[0].author.avatar;
 
-  // mapFiltersContainer.parentNode.insertBefore(cardElement, mapFiltersContainer);
-  return cardElement;
-};
+// return cardElement;
+// };
 
-mapFiltersContainer.parentNode.insertBefore(renderCards(advertisementList), mapFiltersContainer);
-// renderCards();
+// mapFiltersContainer.parentNode.insertBefore(renderCards(advertisementList), mapFiltersContainer);

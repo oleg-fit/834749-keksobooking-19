@@ -5,29 +5,83 @@
   var mapFiltersContainer = document.querySelector('.map__filters-container');
   var templateCard = document.querySelector('#card').content.querySelector('.map__card');
 
+  // Функция для создания элемента со списком характеристик для карты объявления
+  var renderPopupCardFeatures = function (cardFeatures) {
+    var featuresFragment = document.createDocumentFragment();
+
+    for (var counterFeatures = 0; counterFeatures < cardFeatures.length; counterFeatures++) {
+      var element = document.createElement('li');
+      element.classList.add('popup__feature');
+      element.classList.add('popup__feature--' + cardFeatures[counterFeatures]);
+      featuresFragment.appendChild(element);
+    }
+
+    return featuresFragment;
+  };
+
+  // Функция для создания элемента со списком фотографий для карты объявления
+  var renderPopupCardPhotos = function (offerPhotos) {
+    var photosFragment = document.createDocumentFragment();
+
+    for (var counterPhoto = 0; counterPhoto < offerPhotos.length; counterPhoto++) {
+      var child = document.createElement('img');
+      child.classList.add('popup__photo');
+      child.src = offerPhotos[counterPhoto];
+      child.alt = 'Фотография жилья';
+      child.width = '45';
+      child.height = '40';
+      photosFragment.appendChild(child);
+    }
+
+    return photosFragment;
+  };
+
+  // Функция для очистки блока и наполнения его элементами
+  var fillCardElements = function (popupParent, elements) {
+    popupParent.innerHTML = '';
+    popupParent.appendChild(elements);
+  };
+
+
   var renderCards = function (arr) {
-    var cardElement = templateCard.cloneNode(true);
-    var typeOfHousing = cardElement.querySelector('.popup__type');
-    var roomsCapacity = cardElement.querySelector('.popup__text--capacity');
+    var popupCardElement = templateCard.cloneNode(true);
+    var popupCardTitle = popupCardElement.querySelector('.popup__title');
+    var popupCardAddress = popupCardElement.querySelector('.popup__text--address');
+    var popupCardPrice = popupCardElement.querySelector('.popup__text--price');
+    var popupCardTypeOfHousing = popupCardElement.querySelector('.popup__type');
+    var popapCardRoomsCapacity = popupCardElement.querySelector('.popup__text--capacity');
+    var popapCardTime = popupCardElement.querySelector('.popup__text--time');
+    var popupCardFeatures = popupCardElement.querySelector('.popup__features');
+    var popupCardDescription = popupCardElement.querySelector('.popup__description');
+    var popupCardPhotos = popupCardElement.querySelector('.popup__photos');
+
     var strRoomsFor = ' комнаты для ';
     var strGuests = ' гостей';
 
-    cardElement.querySelector('.popup__title').textContent = arr[0].offer.title;
-    cardElement.querySelector('.popup__text--address').textContent = arr[0].offer.address;
-    cardElement.querySelector('.popup__text--price').textContent = arr[0].offer.price + 'P/ночь';
+    // Добаляем аватар пользователя на карту объявления
+    popupCardElement.querySelector('.popup__avatar').src = arr[0].author.avatar;
 
-    // Условия для типа жилья
+    // Добаляем заголовок на карту объявления
+    popupCardTitle.textContent = arr[0].offer.title;
+
+    // Добаляем координаты метки на карту объявления
+    popupCardAddress.textContent = arr[0].offer.address;
+
+    // Добаляем цену за ночь на карту на карту объявления
+    popupCardPrice.textContent = arr[0].offer.price + 'P/ночь';
+
+    // Добаляем тип жилья на карту объявления с помощью условия
     if (arr[0].offer.type === 'palace') {
-      typeOfHousing.textContent = 'Дворец';
+      popupCardTypeOfHousing.textContent = 'Дворец';
     } else if (arr[0].offer.type === 'flat') {
-      typeOfHousing.textContent = 'Квартира';
+      popupCardTypeOfHousing.textContent = 'Квартира';
     } else if (arr[0].offer.type === 'house') {
-      typeOfHousing.textContent = 'Дом';
+      popupCardTypeOfHousing.textContent = 'Дом';
     } else {
-      typeOfHousing.textContent = 'Бунгало';
+      popupCardTypeOfHousing.textContent = 'Бунгало';
     }
 
-    // Количество гостей и комнат
+    // Условия изменения переменной со строкой
     if (arr[0].offer.rooms === 1) {
       strRoomsFor = ' комната для ';
     } else if (arr[0].offer.rooms > 4) {
@@ -36,23 +90,24 @@
     if (arr[0].offer.guests === 1) {
       strGuests = ' гостя';
     }
-    roomsCapacity.textContent = arr[0].offer.rooms + strRoomsFor + arr[0].offer.guests + strGuests;
 
-    // Время заезда и выезда
-    cardElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + arr[0].offer.checkin + ', выезд до ' + arr[0].offer.checkout;
+    // Добаляем вместимость комнат для гостей на карту объявления
+    popapCardRoomsCapacity.textContent = arr[0].offer.rooms + strRoomsFor + arr[0].offer.guests + strGuests;
 
-    // Все доступные удобства Не сделано!!!!!!
+    // Добаляем время заезда и выезда на карту объявления
+    popapCardTime.textContent = 'Заезд после ' + arr[0].offer.checkin + ', выезд до ' + arr[0].offer.checkout;
 
-    // Описание объекта недвижимости
-    cardElement.querySelector('.popup__description').textContent = arr[0].offer.description;
+    // Добавляем характеристики на карту объявления
+    fillCardElements(popupCardFeatures, renderPopupCardFeatures(arr[0].offer.features));
 
-    // Все фотографии из списка Не сделано!!!!!
+    // Добавляем описание объекта недвижимости на карту объявления
+    popupCardDescription.textContent = arr[0].offer.description;
 
-    // Аватар пользователя
-    cardElement.querySelector('.popup__avatar').src = arr[0].author.avatar;
+    // Добавляем фотографии жилья на карту объявления
+    fillCardElements(popupCardPhotos, renderPopupCardPhotos(arr[0].offer.photos));
 
-    return cardElement;
+    return popupCardElement;
   };
 
-  mapFiltersContainer.parentNode.insertBefore(renderCards(window.data.creatAdvertisement), mapFiltersContainer);
+  // mapFiltersContainer.parentNode.insertBefore(renderCards(window.data.creatAdvertisement), mapFiltersContainer);
 })();

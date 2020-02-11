@@ -40,7 +40,7 @@
   };
 
   deactivatePage();
-  window.form.setAddressField();
+  // window.form.setAddressField();
 
   // Активация страницы
   var activatePage = function () {
@@ -49,7 +49,7 @@
     document.querySelector('.map').classList.remove('map--faded');
 
     // Показываем метки
-    window.fotm.createMapElements();
+    window.pin.createMapElements();
 
     // Активируем форму
     adForm.classList.remove('ad-form--disabled');

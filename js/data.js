@@ -1,42 +1,18 @@
 'use strict';
 
 (function () {
-  var TITLE = 'Заголовок';
-  var MAX_ADVERTISEMENT_QUANTITY = 8;
   var MAX_PRICE = 1000000;
   var MAX_ROOMS = 5;
   var MAX_GUESTS = 10;
-  var DESCRIPTION = 'Описание';
+
+  var title = ['Коттедж', 'Дворец', 'Дом', 'Квартира', 'Двушка', 'Трешка'];
+  var MAX_ADVERTISEMENT_QUANTITY = 8;
+  var description = ['Лучший выбор', 'Хороший выбор', 'Отличный выбор', 'Неожиданный выбор'];
   var map = document.querySelector('.map');
-
-  var type = [
-    'palace',
-    'flat',
-    'house',
-    'bungalo'
-  ];
-
-  var checkin = [
-    '12:00',
-    '13:00',
-    '14:00'
-  ];
-
-  var checkout = [
-    '12:00',
-    '13:00',
-    '14:00'
-  ];
-
-  var features = [
-    'wifi',
-    'dishwasher',
-    'parking',
-    'washer',
-    'elevator',
-    'conditioner'
-  ];
-
+  var type = ['palace', 'flat', 'house', 'bungalo'];
+  var checkin = ['12:00', '13:00', '14:00'];
+  var checkout = ['12:00', '13:00', '14:00'];
+  var features = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
   var photos = [
     'http://o0.github.io/assets/images/tokyo/hotel1.jpg',
     'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
@@ -88,7 +64,7 @@
           avatar: 'img/avatars/user0' + (i + 1) + '.png'
         },
         'offer': {
-          title: TITLE,
+          title: choosingRandomValue(title),
           address: xCoordinate + ', ' + yCoordinate,
           price: randomInteger(0, MAX_PRICE),
           type: choosingRandomValue(type),
@@ -97,7 +73,7 @@
           checkin: choosingRandomValue(checkin),
           checkout: choosingRandomValue(checkout),
           features: choosingRandomArr(features),
-          description: DESCRIPTION,
+          description: choosingRandomValue(description),
           photos: choosingRandomArr(photos)
         },
         'locationPin': {

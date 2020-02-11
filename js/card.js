@@ -110,4 +110,5 @@
   };
 
   mapFiltersContainer.parentNode.insertBefore(renderCards(window.data.creatAdvertisement), mapFiltersContainer);
+
 })();

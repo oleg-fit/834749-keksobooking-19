@@ -109,5 +109,5 @@
     return popupCardElement;
   };
 
-  // mapFiltersContainer.parentNode.insertBefore(renderCards(window.data.creatAdvertisement), mapFiltersContainer);
+  mapFiltersContainer.parentNode.insertBefore(renderCards(window.data.creatAdvertisement), mapFiltersContainer);
 })();

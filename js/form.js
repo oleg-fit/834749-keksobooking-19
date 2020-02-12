@@ -1,6 +1,9 @@
 'use strict';
 
 (function () {
+  var WIDTH_MAP_PIN_MAIN = 65;
+  var HEGHT_MAP_PIN_MAIN = 65;
+
   var adForm = document.querySelector('.ad-form');
   var adFormButtonSubmit = adForm.querySelector('.ad-form__submit');
   var adFormSelectRoomNumber = adForm.querySelector('#room_number');
@@ -13,16 +16,25 @@
   var adFormselectTimeout = adForm.querySelector('#timeout');
   var adFormFieldAddress = adForm.querySelector('#address');
 
-  // var mainPin = document.querySelector('.map__pin--main');
+  var mainPin = document.querySelector('.map__pin--main');
 
-  // Заполнение координатами поля адрес
+
+  // Функция для добавления класса на элемент
+  var addCssClass = function (element) {
+    element.classList.add('ad-form__input-error');
+  };
+
+  // Функция для удаления класса с элемента
+  var removeCssClass = function (element) {
+    element.classList.remove('ad-form__input-error');
+  };
+
+  // Заполнение координатами поле адрес
   var setAddressField = function () {
     if (window.page.isActivePage) {
-      // adFormFieldAddress.value = (mainPin.offsetLeft +  / 2) + ', ' + (mainPin.offsetTop + );
-      adFormFieldAddress.value = 50 + ', ' + 50;
+      adFormFieldAddress.value = (mainPin.offsetLeft + WIDTH_MAP_PIN_MAIN / 2) + ', ' + (mainPin.offsetTop + HEGHT_MAP_PIN_MAIN);
     } else {
-      adFormFieldAddress.value = 100 + ', ' + 100;
-      // adFormFieldAddress.value = (mainPin.offsetLeft + ) + ', ' + (mainPin.offsetTop + );
+      adFormFieldAddress.value = (mainPin.offsetLeft + WIDTH_MAP_PIN_MAIN / 2) + ', ' + (mainPin.offsetTop + HEGHT_MAP_PIN_MAIN / 2);
     }
   };
 
@@ -30,12 +42,16 @@
   var validateAdFormInputTitle = function () {
     if (adFormInputTitle.validity.tooShort) {
       adFormInputTitle.setCustomValidity('Заголовок объявления должен содержать не менее 30 символов');
+      addCssClass(adFormInputTitle);
     } else if (adFormInputTitle.validity.tooLong) {
       adFormInputTitle.setCustomValidity('Заголовок объявления должен содержать не более  100 символов');
+      addCssClass(adFormInputTitle);
     } else if (adFormInputTitle.validity.valueMissing) {
       adFormInputTitle.setCustomValidity('Обязательное поле');
+      addCssClass(adFormInputTitle);
     } else {
       adFormInputTitle.setCustomValidity('');
+      removeCssClass(adFormInputTitle);
     }
   };
 
@@ -46,12 +62,16 @@
 
     if (adFormInputPrice.value < minPrice) {
       adFormInputPrice.setCustomValidity('Цена за ночь не может быть меньше чем ' + minPrice);
+      addCssClass(adFormInputPrice);
     } else if (adFormInputPrice.value > 1000000) {
       adFormInputPrice.setCustomValidity('Цена за ночь не может быть больше чем ' + maxPrice);
+      addCssClass(adFormInputPrice);
     } else if (adFormInputPrice.validity.valueMissing) {
       adFormInputPrice.setCustomValidity('Обязательное поле');
+      addCssClass(adFormInputPrice);
     } else {
       adFormInputPrice.setCustomValidity('');
+      removeCssClass(adFormInputPrice);
     }
   };
 
@@ -84,14 +104,19 @@
 
     if (rooms === 1 && capacity !== 1) {
       adFormSelectRoomNumber.setCustomValidity('В 1-ой комнате может быть только 1 гость');
+      addCssClass(adFormSelectRoomNumber);
     } else if (rooms === 2 && (capacity < 1 || capacity > 2)) {
       adFormSelectRoomNumber.setCustomValidity('В 2-х комнатах может от 1 до 2-х гостей');
+      addCssClass(adFormSelectRoomNumber);
     } else if (rooms === 3 && (capacity < 1 || capacity > 3)) {
       adFormSelectRoomNumber.setCustomValidity('В 3-х комнатах может быть от 1 до 3-х гостей');
+      addCssClass(adFormSelectRoomNumber);
     } else if (rooms === 100 && capacity !== 0) {
       adFormSelectRoomNumber.setCustomValidity('В 100 комнатах не может быть гостей');
+      addCssClass(adFormSelectRoomNumber);
     } else {
       adFormSelectRoomNumber.setCustomValidity('');
+      removeCssClass(adFormSelectRoomNumber);
     }
   };
 

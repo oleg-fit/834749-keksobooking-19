@@ -2,6 +2,7 @@
 
 (function () {
 
+  var map = document.querySelector('.map');
   var mapFiltersContainer = document.querySelector('.map__filters-container');
   var templateCard = document.querySelector('#card').content.querySelector('.map__card');
 
@@ -43,7 +44,7 @@
   };
 
 
-  var renderCards = function (arr) {
+  var renderOneCard = function (arr) {
     var popupCardElement = templateCard.cloneNode(true);
     var popupCardTitle = popupCardElement.querySelector('.popup__title');
     var popupCardAddress = popupCardElement.querySelector('.popup__text--address');
@@ -109,6 +110,7 @@
     return popupCardElement;
   };
 
-  mapFiltersContainer.parentNode.insertBefore(renderCards(window.data.creatAdvertisement), mapFiltersContainer);
+
+  mapFiltersContainer.parentNode.insertBefore(renderOneCard(window.data.creatAdvertisement), mapFiltersContainer);
 
 })();

@@ -2,7 +2,7 @@
 
 (function () {
 
-  var map = document.querySelector('.map');
+  // var map = document.querySelector('.map');
   var mapFiltersContainer = document.querySelector('.map__filters-container');
   var templateCard = document.querySelector('#card').content.querySelector('.map__card');
 

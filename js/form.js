@@ -29,14 +29,7 @@
     element.classList.remove('ad-form__input-error');
   };
 
-  // Заполнение координатами поле адрес
-  var setAddressField = function () {
-    if (window.page.isActivePage) {
-      adFormFieldAddress.value = (mainPin.offsetLeft + WIDTH_MAP_PIN_MAIN / 2) + ', ' + (mainPin.offsetTop + HEGHT_MAP_PIN_MAIN);
-    } else {
-      adFormFieldAddress.value = (mainPin.offsetLeft + WIDTH_MAP_PIN_MAIN / 2) + ', ' + (mainPin.offsetTop + HEGHT_MAP_PIN_MAIN / 2);
-    }
-  };
+  
 
   // Валидация поля заголовка
   var validateAdFormInputTitle = function () {

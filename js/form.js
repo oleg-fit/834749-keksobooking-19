@@ -1,8 +1,8 @@
 'use strict';
 
 (function () {
-  var WIDTH_MAP_PIN_MAIN = 65;
-  var HEGHT_MAP_PIN_MAIN = 65;
+  // var WIDTH_MAP_PIN_MAIN = 65;
+  // var HEGHT_MAP_PIN_MAIN = 65;
 
   var adForm = document.querySelector('.ad-form');
   var adFormButtonSubmit = adForm.querySelector('.ad-form__submit');
@@ -14,9 +14,9 @@
   var adFormSelectTime = adForm.querySelector('.ad-form__element--time');
   var adFormselectTimein = adForm.querySelector('#timein');
   var adFormselectTimeout = adForm.querySelector('#timeout');
-  var adFormFieldAddress = adForm.querySelector('#address');
+  // var adFormFieldAddress = adForm.querySelector('#address');
 
-  var mainPin = document.querySelector('.map__pin--main');
+  // var mainPin = document.querySelector('.map__pin--main');
 
 
   // Функция для добавления класса на элемент
@@ -176,7 +176,7 @@
   //   adFormButtonSubmit.removeEventListener('click', onAdFormButtonSubmitClick);
   // };
 
-  window.form = {
-    setAddressField: setAddressField
-  };
+  // window.form = {
+  //   setAddressField: setAddressField
+  // };
 })();

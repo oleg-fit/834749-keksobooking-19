@@ -18,7 +18,6 @@
     'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
     'http://o0.github.io/assets/images/tokyo/hotel3.jpg'
   ];
-
   // Функция для создания случайного числа от min до max
   var randomInteger = function (min, max) {
     var rand = min + Math.random() * (max - min);

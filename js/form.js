@@ -29,8 +29,6 @@
     element.classList.remove('ad-form__input-error');
   };
 
-  
-
   // Валидация поля заголовка
   var validateAdFormInputTitle = function () {
     if (adFormInputTitle.validity.tooShort) {

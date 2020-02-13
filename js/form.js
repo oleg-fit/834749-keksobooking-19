@@ -1,6 +1,11 @@
 'use strict';
 
 (function () {
+  var MAIN_PIN_INACTIVE_RADIUS = 32;
+  var MAIN_PIN_WIDTH = 64;
+  var MAIN_PIN_HEIGHT = 80;
+  var isActivePage = false;
+
   var adForm = document.querySelector('.ad-form');
   var adFormButtonSubmit = adForm.querySelector('.ad-form__submit');
   var adFormSelectRoomNumber = adForm.querySelector('#room_number');
@@ -12,17 +17,14 @@
   var adFormselectTimein = adForm.querySelector('#timein');
   var adFormselectTimeout = adForm.querySelector('#timeout');
   var adFormFieldAddress = adForm.querySelector('#address');
+  var mainPin = document.querySelector('.map__pin--main');
 
-  // var mainPin = document.querySelector('.map__pin--main');
-
-  // Заполнение координатами поля адрес
+  // Заполняет поле адреса
   var setAddressField = function () {
-    if (window.page.isActivePage) {
-      // adFormFieldAddress.value = (mainPin.offsetLeft +  / 2) + ', ' + (mainPin.offsetTop + );
-      adFormFieldAddress.value = 50 + ', ' + 50;
+    if (isActivePage) {
+      adFormFieldAddress.value = (mainPin.offsetLeft + MAIN_PIN_WIDTH / 2) + ', ' + (mainPin.offsetTop + MAIN_PIN_HEIGHT);
     } else {
-      adFormFieldAddress.value = 100 + ', ' + 100;
-      // adFormFieldAddress.value = (mainPin.offsetLeft + ) + ', ' + (mainPin.offsetTop + );
+      adFormFieldAddress.value = (mainPin.offsetLeft + MAIN_PIN_INACTIVE_RADIUS) + ', ' + (mainPin.offsetTop + MAIN_PIN_INACTIVE_RADIUS);
     }
   };
 
@@ -147,8 +149,6 @@
     adFormButtonSubmit.addEventListener('click', onAdFormButtonSubmitClick);
   };
 
-  addListenersToAdForm();
-
   // Функция для удаления обработчиков на форме
   // var removeListenersToAdForm = function () {
   //   adFormInputTitle.removeEventListener('input', onAdFormInputTitle);
@@ -161,6 +161,8 @@
   // };
 
   window.form = {
-    setAddressField: setAddressField
+    addListenersToAdForm: addListenersToAdForm,
+    setAddressField: setAddressField,
+    isActivePage: isActivePage
   };
 })();

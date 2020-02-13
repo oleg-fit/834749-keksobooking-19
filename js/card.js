@@ -42,8 +42,7 @@
     popupParent.appendChild(elements);
   };
 
-
-  var renderCards = function (arr) {
+  var renderOneCard = function (arr) {
     var popupCardElement = templateCard.cloneNode(true);
     var popupCardTitle = popupCardElement.querySelector('.popup__title');
     var popupCardAddress = popupCardElement.querySelector('.popup__text--address');
@@ -109,9 +108,12 @@
     return popupCardElement;
   };
 
-  for (var k = 0; k < window.pin.MAX_ADVERTISEMENT_QUANTITY; k++) {
-    mapFiltersContainer.parentNode.insertBefore(renderCards(window.data.creatAdvertisement[k]), mapFiltersContainer);
-  }
+  var renderCards = function () {
+    for (var k = 0; k < window.pin.MAX_ADVERTISEMENT_QUANTITY; k++) {
+      mapFiltersContainer.parentNode.insertBefore(renderOneCard(window.data.creatAdvertisement[k]), mapFiltersContainer);
+    }
+  };
 
+  renderCards();
 
 })();

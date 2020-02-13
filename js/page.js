@@ -5,7 +5,6 @@
   var LEFT_MOUSE_BUTTON = 0;
 
   var mapPinMain = document.querySelector('.map__pin--main');
-  var isActivePage = false;
 
   var adForm = document.querySelector('.ad-form');
   var adFormInputs = adForm.querySelectorAll('input');
@@ -30,20 +29,32 @@
   // Деактивация страницы
   var deactivatePage = function () {
 
+    // Флаг страница не активна
+    window.form.isActivePage = false;
+
+    // Добавляем координаты главного пина на неактивной странице
+    window.form.setAddressField();
+
     // Деактивируем форму
     addAttributeAdFormElements(adFormInputs);
     addAttributeAdFormElements(adFormSelects);
     addAttributeAdFormElements(adFormTextareas);
     addAttributeAdFormElements(adFormButtons);
-
-    isActivePage = false;
   };
 
   deactivatePage();
-  // window.form.setAddressField();
 
   // Активация страницы
   var activatePage = function () {
+
+    // Флаг страница активна
+    window.form.isActivePage = true;
+
+    // Добавляем координаты главного пина на неактивной странице
+    window.form.setAddressField();
+
+    // Добавления обработчиков на форму
+    window.form.addListenersToAdForm();
 
     // Показываем карту
     document.querySelector('.map').classList.remove('map--faded');
@@ -57,9 +68,6 @@
     removeAttributeAdFormElements(adFormSelects);
     removeAttributeAdFormElements(adFormTextareas);
     removeAttributeAdFormElements(adFormButtons);
-
-    isActivePage = true;
-    window.form.setAddressField();
   };
 
   // Проверка на нажатие левой кнопки мыши
@@ -76,7 +84,4 @@
     }
   });
 
-  window.page = {
-    isActivePage: isActivePage
-  };
 })();

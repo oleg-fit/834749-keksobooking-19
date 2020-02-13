@@ -34,7 +34,8 @@
   };
 
   window.pin = {
-    createMapElements: createMapElements
+    createMapElements: createMapElements,
+    MAX_ADVERTISEMENT_QUANTITY: MAX_ADVERTISEMENT_QUANTITY
   };
 
 })();

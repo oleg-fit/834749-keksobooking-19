@@ -4,7 +4,6 @@
   var MAIN_PIN_INACTIVE_RADIUS = 32;
   var MAIN_PIN_WIDTH = 64;
   var MAIN_PIN_HEIGHT = 80;
-  var isActivePage = false;
 
   var adForm = document.querySelector('.ad-form');
   var adFormButtonSubmit = adForm.querySelector('.ad-form__submit');
@@ -17,11 +16,49 @@
   var adFormselectTimein = adForm.querySelector('#timein');
   var adFormselectTimeout = adForm.querySelector('#timeout');
   var adFormFieldAddress = adForm.querySelector('#address');
+  var adFormAllFieldset = adForm.querySelectorAll('fieldset');
+
   var mainPin = document.querySelector('.map__pin--main');
 
+  // Функция добавляет атрибуты disabled
+  var addAttributeAdFormElements = function (arr) {
+    for (var j = 0; j < arr.length; j++) {
+      arr[j].setAttribute('disabled', 'disabled');
+    }
+  };
+
+  // Функция удаляет атрибуты disabled
+  var removeAttributeAdFormElements = function (arr) {
+    for (var j = 0; j < arr.length; j++) {
+      arr[j].removeAttribute('disabled', 'disabled');
+    }
+  };
+
+  // Функция активирует поля формы
+  var activateAdForm = function () {
+    removeAttributeAdFormElements(adFormAllFieldset);
+  };
+
+  // Функция деактивирует поля формы
+  var deactivateAdForm = function () {
+    addAttributeAdFormElements(adFormAllFieldset);
+  };
+
+  // Фунция для изменения состояния формы
+  var сhangeAdFormState = function (state) {
+    if (state) {
+      activateAdForm();
+      adForm.classList.remove('ad-form--disabled');
+    } else {
+      deactivateAdForm();
+      adForm.classList.add('ad-form--disabled');
+    }
+    adFormFieldAddress.setAttribute('readonly', 'readonly');
+  };
+
   // Заполняет поле адреса
-  var setAddressField = function () {
-    if (isActivePage) {
+  var setAddressField = function (state) {
+    if (state) {
       adFormFieldAddress.value = (mainPin.offsetLeft + MAIN_PIN_WIDTH / 2) + ', ' + (mainPin.offsetTop + MAIN_PIN_HEIGHT);
     } else {
       adFormFieldAddress.value = (mainPin.offsetLeft + MAIN_PIN_INACTIVE_RADIUS) + ', ' + (mainPin.offsetTop + MAIN_PIN_INACTIVE_RADIUS);
@@ -150,19 +187,20 @@
   };
 
   // Функция для удаления обработчиков на форме
-  // var removeListenersToAdForm = function () {
-  //   adFormInputTitle.removeEventListener('input', onAdFormInputTitle);
-  //   adFormSelectType.removeEventListener('change', onAdFormTypeChange);
-  //   adFormInputPrice.removeEventListener('input', onAdFormPriceInput);
-  //   adFormSelectRoomNumber.removeEventListener('change', onAdFormSelectRoomChange);
-  //   adFormSelectRoomCapacity.removeEventListener('change', onAdFormSelectCapacityChange);
-  //   adFormSelectTime.removeEventListener('change', onAdFormTimeChange);
-  //   adFormButtonSubmit.removeEventListener('click', onAdFormButtonSubmitClick);
-  // };
+  var removeListenersToAdForm = function () {
+    adFormInputTitle.removeEventListener('input', onAdFormInputTitle);
+    adFormSelectType.removeEventListener('change', onAdFormTypeChange);
+    adFormInputPrice.removeEventListener('input', onAdFormPriceInput);
+    adFormSelectRoomNumber.removeEventListener('change', onAdFormSelectRoomChange);
+    adFormSelectRoomCapacity.removeEventListener('change', onAdFormSelectCapacityChange);
+    adFormSelectTime.removeEventListener('change', onAdFormTimeChange);
+    adFormButtonSubmit.removeEventListener('click', onAdFormButtonSubmitClick);
+  };
 
   window.form = {
+    сhangeAdFormState: сhangeAdFormState,
     addListenersToAdForm: addListenersToAdForm,
-    setAddressField: setAddressField,
-    isActivePage: isActivePage
+    removeListenersToAdForm: removeListenersToAdForm,
+    setAddressField: setAddressField
   };
 })();

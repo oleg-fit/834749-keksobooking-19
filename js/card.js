@@ -1,9 +1,13 @@
 'use strict';
 
 (function () {
+  var ENTER_KEY = 'Enter';
+  var ESC_KEY = 'Escape';
+  var LEFT_MOUSE_BUTTON = 0;
 
   var mapFiltersContainer = document.querySelector('.map__filters-container');
   var templateCard = document.querySelector('#card').content.querySelector('.map__card');
+  var mapPins = document.querySelector('.map__pins');
 
   // Функция для создания элемента со списком характеристик для карты объявления
   var renderPopupCardFeatures = function (cardFeatures) {
@@ -42,7 +46,7 @@
     popupParent.appendChild(elements);
   };
 
-  var renderOneCard = function (arr) {
+  var renderOneOfferCard = function (arr) {
     var popupCardElement = templateCard.cloneNode(true);
     var popupCardTitle = popupCardElement.querySelector('.popup__title');
     var popupCardAddress = popupCardElement.querySelector('.popup__text--address');
@@ -108,12 +112,99 @@
     return popupCardElement;
   };
 
-  var renderCards = function () {
-    for (var k = 0; k < window.pin.MAX_ADVERTISEMENT_QUANTITY; k++) {
-      mapFiltersContainer.parentNode.insertBefore(renderOneCard(window.data.creatAdvertisement[k]), mapFiltersContainer);
+  // Функция для закрытия карточки предложения
+  var closeOfferCard = function () {
+    var offerCard = document.querySelector('.map__card');
+
+    if (offerCard) {
+      offerCard.removeEventListener('click', onCardCloseClikLeftMouseButton);
+      offerCard.removeEventListener('click', onCardCloseEnterKeydown);
+      offerCard.parentElement.removeChild(offerCard);
     }
   };
 
-  renderCards();
+  // Функция для открытия карточки предложения
+  var openOfferCard = function (idIndex) {
+    closeOfferCard();
+
+    var offerCard = document.querySelector('.map__card');
+    mapFiltersContainer.parentNode.insertBefore(renderOneOfferCard(window.data.creatAdvertisement[idIndex]), mapFiltersContainer);
+
+    offerCard.addEventListener('click', onCardCloseClikLeftMouseButton);
+    offerCard.addEventListener('click', onCardCloseEnterKeydown);
+  };
+
+  // ============================================== Обработчики закртыия карточки предложения=============
+  var onCardCloseClikLeftMouseButton = function (evt) {
+    if (evt.key === LEFT_MOUSE_BUTTON) {
+      // var closeButton = document.querySelector('.popup__close');
+
+      closeOfferCard();
+    }
+  };
+
+  var onCardCloseEnterKeydown = function (evt) {
+    if (evt.key === ENTER_KEY) {
+      // var closeButton = document.querySelector('.popup__close');
+
+      closeOfferCard();
+    }
+  };
+
+  // Обработчик закрытия по нажатию на ESC
+  var onCardCloseEscKeydown = function (evt) {
+    if (evt.key === ESC_KEY) {
+      closeOfferCard();
+    }
+  };
+
+  // ============================================== Обработчики открытия карточки предложения=============
+  // Обработчик открытия карточки предложения по клику на пин
+  var onMapClick = function (evt) {
+    var elementTarget = evt.target.closest('button');
+
+    if (elementTarget && !elementTarget.classList.contains('map__pin--main')) {
+      var elementTargetId = elementTarget.getAttribute('id');
+      var idIndex = parseFloat(elementTargetId);
+      openOfferCard(idIndex);
+      // evt.stopPropagation();
+    }
+  };
+
+  // Обработчик открытия карточки предложения по нажатию ENTER
+  var onMapKeydown = function (evt) {
+    if (evt.key === ENTER_KEY) {
+      var elementTarget = evt.target.closest('button');
+
+      if (elementTarget && !elementTarget.classList.contains('map__pin--main')) {
+        var elementTargetId = elementTarget.getAttribute('id');
+        var idIndex = parseFloat(elementTargetId);
+        openOfferCard(idIndex);
+        // evt.stopPropagation();
+      }
+    }
+  };
+
+  // Добавляет обработчики событий карты
+  var addMapListeners = function () {
+    document.addEventListener('keydown', onCardCloseEscKeydown);
+    mapPins.addEventListener('click', onMapClick);
+    mapPins.addEventListener('keydown', onMapKeydown);
+  };
+
+  // Удаляет обработчики событий карты
+  var removeMapListeners = function () {
+    document.removeEventListener('keydown', onCardCloseEscKeydown);
+    mapPins.removeEventListener('click', onMapClick);
+    mapPins.removeEventListener('keydown', onMapKeydown);
+  };
+
+  window.card = {
+    addMapListeners: addMapListeners,
+    removeMapListeners: removeMapListeners,
+    ENTER_KEY: ENTER_KEY,
+    ESC_KEY: ESC_KEY,
+    LEFT_MOUSE_BUTTON: LEFT_MOUSE_BUTTON
+  };
 
 })();

@@ -3,7 +3,7 @@
 (function () {
   var MAIN_PIN_INACTIVE_RADIUS = 32;
   var MAIN_PIN_WIDTH = 64;
-  var MAIN_PIN_HEIGHT = 80;
+  var MAIN_PIN_HEIGHT = 86;
 
   var adForm = document.querySelector('.ad-form');
   var adFormButtonSubmit = adForm.querySelector('.ad-form__submit');
@@ -198,6 +198,7 @@
   };
 
   window.form = {
+    mainPin: mainPin,
     сhangeAdFormState: сhangeAdFormState,
     addListenersToAdForm: addListenersToAdForm,
     removeListenersToAdForm: removeListenersToAdForm,

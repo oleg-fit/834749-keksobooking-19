@@ -126,9 +126,9 @@
   // Функция для открытия карточки предложения
   var openOfferCard = function (idIndex) {
     closeOfferCard();
+    mapFiltersContainer.parentNode.insertBefore(renderOneOfferCard(window.data.creatAdvertisement[idIndex]), mapFiltersContainer);
 
     var offerCard = document.querySelector('.map__card');
-    mapFiltersContainer.parentNode.insertBefore(renderOneOfferCard(window.data.creatAdvertisement[idIndex]), mapFiltersContainer);
 
     offerCard.addEventListener('click', onCardCloseClikLeftMouseButton);
     offerCard.addEventListener('click', onCardCloseEnterKeydown);

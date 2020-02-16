@@ -1,9 +1,13 @@
 'use strict';
 
 (function () {
+  var ENTER_KEY = 'Enter';
+  var ESC_KEY = 'Escape';
+  var LEFT_MOUSE_BUTTON = 0;
 
   var mapFiltersContainer = document.querySelector('.map__filters-container');
   var templateCard = document.querySelector('#card').content.querySelector('.map__card');
+  var mapPins = document.querySelector('.map__pins');
 
   // Функция для создания элемента со списком характеристик для карты объявления
   var renderPopupCardFeatures = function (cardFeatures) {
@@ -42,8 +46,7 @@
     popupParent.appendChild(elements);
   };
 
-
-  var renderCards = function (arr) {
+  var renderOneOfferCard = function (arr) {
     var popupCardElement = templateCard.cloneNode(true);
     var popupCardTitle = popupCardElement.querySelector('.popup__title');
     var popupCardAddress = popupCardElement.querySelector('.popup__text--address');
@@ -59,56 +62,150 @@
     var strGuests = ' гостей';
 
     // Добаляем аватар пользователя на карту объявления
-    popupCardElement.querySelector('.popup__avatar').src = arr[0].author.avatar;
+    popupCardElement.querySelector('.popup__avatar').src = arr.author.avatar;
 
     // Добаляем заголовок на карту объявления
-    popupCardTitle.textContent = arr[0].offer.title;
+    popupCardTitle.textContent = arr.offer.title;
 
     // Добаляем координаты метки на карту объявления
-    popupCardAddress.textContent = arr[0].offer.address;
+    popupCardAddress.textContent = arr.offer.address;
 
     // Добаляем цену за ночь на карту на карту объявления
-    popupCardPrice.textContent = arr[0].offer.price + 'P/ночь';
+    popupCardPrice.textContent = arr.offer.price + 'P/ночь';
 
     // Добаляем тип жилья на карту объявления с помощью условия
-    if (arr[0].offer.type === 'palace') {
+    if (arr.offer.type === 'palace') {
       popupCardTypeOfHousing.textContent = 'Дворец';
-    } else if (arr[0].offer.type === 'flat') {
+    } else if (arr.offer.type === 'flat') {
       popupCardTypeOfHousing.textContent = 'Квартира';
-    } else if (arr[0].offer.type === 'house') {
+    } else if (arr.offer.type === 'house') {
       popupCardTypeOfHousing.textContent = 'Дом';
     } else {
       popupCardTypeOfHousing.textContent = 'Бунгало';
     }
 
     // Условия изменения переменной со строкой
-    if (arr[0].offer.rooms === 1) {
+    if (arr.offer.rooms === 1) {
       strRoomsFor = ' комната для ';
-    } else if (arr[0].offer.rooms > 4) {
+    } else if (arr.offer.rooms > 4) {
       strRoomsFor = ' комнат для ';
     }
-    if (arr[0].offer.guests === 1) {
+    if (arr.offer.guests === 1) {
       strGuests = ' гостя';
     }
 
     // Добаляем вместимость комнат для гостей на карту объявления
-    popapCardRoomsCapacity.textContent = arr[0].offer.rooms + strRoomsFor + arr[0].offer.guests + strGuests;
+    popapCardRoomsCapacity.textContent = arr.offer.rooms + strRoomsFor + arr.offer.guests + strGuests;
 
     // Добаляем время заезда и выезда на карту объявления
-    popapCardTime.textContent = 'Заезд после ' + arr[0].offer.checkin + ', выезд до ' + arr[0].offer.checkout;
+    popapCardTime.textContent = 'Заезд после ' + arr.offer.checkin + ', выезд до ' + arr.offer.checkout;
 
     // Добавляем характеристики на карту объявления
-    fillCardElements(popupCardFeatures, renderPopupCardFeatures(arr[0].offer.features));
+    fillCardElements(popupCardFeatures, renderPopupCardFeatures(arr.offer.features));
 
     // Добавляем описание объекта недвижимости на карту объявления
-    popupCardDescription.textContent = arr[0].offer.description;
+    popupCardDescription.textContent = arr.offer.description;
 
     // Добавляем фотографии жилья на карту объявления
-    fillCardElements(popupCardPhotos, renderPopupCardPhotos(arr[0].offer.photos));
+    fillCardElements(popupCardPhotos, renderPopupCardPhotos(arr.offer.photos));
 
     return popupCardElement;
   };
 
-  mapFiltersContainer.parentNode.insertBefore(renderCards(window.data.creatAdvertisement), mapFiltersContainer);
+  // Функция для закрытия карточки предложения
+  var closeOfferCard = function () {
+    var offerCard = document.querySelector('.map__card');
+
+    if (offerCard) {
+      var popupCardCloseButton = offerCard.querySelector('.popup__close');
+
+      popupCardCloseButton.removeEventListener('click', onCardCloseClikLeftMouseButton);
+      popupCardCloseButton.removeEventListener('keydown', onCardCloseEnterKeydown);
+      offerCard.parentElement.removeChild(offerCard);
+    }
+  };
+
+  // Функция для открытия карточки предложения
+  var openOfferCard = function (idIndex) {
+    closeOfferCard();
+    mapFiltersContainer.parentNode.insertBefore(renderOneOfferCard(window.data.creatAdvertisement[idIndex]), mapFiltersContainer);
+
+    var offerCard = document.querySelector('.map__card');
+    var popupCardCloseButton = offerCard.querySelector('.popup__close');
+
+    popupCardCloseButton.addEventListener('click', onCardCloseClikLeftMouseButton);
+    popupCardCloseButton.addEventListener('keydown', onCardCloseEnterKeydown);
+  };
+
+  // ============================================== Обработчики закртыия карточки предложения=============
+  // Обработчик закрытия карточки по нажатию на крестик(левая кнопка мыши)
+  var onCardCloseClikLeftMouseButton = function (evt) {
+    if (evt.button === LEFT_MOUSE_BUTTON) {
+      closeOfferCard();
+    }
+  };
+
+  // Обработчик закрытия карточки по нажатию на крестик(клавиша ENTER)
+  var onCardCloseEnterKeydown = function (evt) {
+    if (evt.key === ENTER_KEY) {
+      closeOfferCard();
+    }
+  };
+
+  // Обработчик закрытия по нажатию на ESC
+  var onCardCloseEscKeydown = function (evt) {
+    if (evt.key === ESC_KEY) {
+      closeOfferCard();
+    }
+  };
+
+  // ============================================== Обработчики открытия карточки предложения=============
+  // Обработчик открытия карточки предложения по клику на пин
+  var onMapClick = function (evt) {
+    var elementTarget = evt.target.closest('button');
+
+    if (elementTarget && !elementTarget.classList.contains('map__pin--main')) {
+      var elementTargetId = elementTarget.getAttribute('id');
+      var idIndex = parseFloat(elementTargetId);
+      openOfferCard(idIndex);
+      evt.stopPropagation();
+    }
+  };
+
+  // Обработчик открытия карточки предложения по нажатию ENTER
+  var onMapKeydown = function (evt) {
+    if (evt.key === ENTER_KEY) {
+      var elementTarget = evt.target.closest('button');
+
+      if (elementTarget && !elementTarget.classList.contains('map__pin--main')) {
+        var elementTargetId = elementTarget.getAttribute('id');
+        var idIndex = parseFloat(elementTargetId);
+        openOfferCard(idIndex);
+        evt.stopPropagation();
+      }
+    }
+  };
+
+  // Добавляет обработчики событий карты
+  var addMapListeners = function () {
+    document.addEventListener('keydown', onCardCloseEscKeydown);
+    mapPins.addEventListener('click', onMapClick);
+    mapPins.addEventListener('keydown', onMapKeydown);
+  };
+
+  // Удаляет обработчики событий карты
+  var removeMapListeners = function () {
+    document.removeEventListener('keydown', onCardCloseEscKeydown);
+    mapPins.removeEventListener('click', onMapClick);
+    mapPins.removeEventListener('keydown', onMapKeydown);
+  };
+
+  window.card = {
+    addMapListeners: addMapListeners,
+    removeMapListeners: removeMapListeners,
+    ENTER_KEY: ENTER_KEY,
+    ESC_KEY: ESC_KEY,
+    LEFT_MOUSE_BUTTON: LEFT_MOUSE_BUTTON
+  };
 
 })();

@@ -1,49 +1,67 @@
 'use strict';
 
 (function () {
-  var ENTER_KEY = 'Enter';
-  var LEFT_MOUSE_BUTTON = 0;
-
-  var mapPinMain = document.querySelector('.map__pin--main');
-  var isActivePage = false;
-
-  var adForm = document.querySelector('.ad-form');
-  var adFormInputs = adForm.querySelectorAll('input');
-  var adFormSelects = adForm.querySelectorAll('select');
-  var adFormTextareas = adForm.querySelectorAll('textarea');
-  var adFormButtons = adForm.querySelectorAll('button');
-
-  // Функция добавляет атрибуты disabled
-  var addAttributeAdFormElements = function (arr) {
-    for (var j = 0; j < arr.length; j++) {
-      arr[j].setAttribute('disabled', 'disabled');
+  var onFirstClickMainPin = function (evt) {
+    if (evt.button === window.card.LEFT_MOUSE_BUTTON) {
+      activatePage();
     }
   };
 
-  // Функция удаляет атрибуты disabled
-  var removeAttributeAdFormElements = function (arr) {
-    for (var j = 0; j < arr.length; j++) {
-      arr[j].removeAttribute('disabled', 'disabled');
+  var onFirstKeydownMainPin = function (evt) {
+    if (evt.key === window.card.ENTER_KEY) {
+      activatePage();
     }
+  };
+
+  // Вешаем обработчик на главный пин
+  var addListenersToMainPin = function () {
+    window.form.mainPin.addEventListener('mousedown', onFirstClickMainPin);
+    window.form.mainPin.addEventListener('keydown', onFirstKeydownMainPin);
+  };
+
+  // Удаляем обработчик на главный пин
+  var removeListenersToMainPin = function () {
+    window.form.mainPin.removeEventListener('mousedown', onFirstClickMainPin);
+    window.form.mainPin.removeEventListener('keydown', onFirstKeydownMainPin);
   };
 
   // Деактивация страницы
   var deactivatePage = function () {
+    // Добавляем координаты главного пина на неактивной странице
+    window.form.setAddressField(false);
 
     // Деактивируем форму
-    addAttributeAdFormElements(adFormInputs);
-    addAttributeAdFormElements(adFormSelects);
-    addAttributeAdFormElements(adFormTextareas);
-    addAttributeAdFormElements(adFormButtons);
+    window.form.сhangeAdFormState(false);
 
-    isActivePage = false;
+    // Деактивируем фильтр
+    window.filter.сhangeFilterFormState(false);
+
+    // Удаляем обработчиков на форму
+    window.form.removeListenersToAdForm();
+
+    // Удаляем обработчики событий карты
+    window.card.removeMapListeners();
+
+    // Вешаем обработчики на главный пин
+    addListenersToMainPin();
+
+    // Вешаем обработчик перетаскивания главного пина
+    window.form.mainPin.addEventListener('mousedown', window.movement.onClickActiveMainPin);
   };
-
-  deactivatePage();
-  // window.form.setAddressField();
 
   // Активация страницы
   var activatePage = function () {
+    // Добавляем координаты главного пина на неактивной странице
+    window.form.setAddressField(true);
+
+    // Активируем форму
+    window.form.сhangeAdFormState(true);
+
+    // Активируем фильтр
+    window.filter.сhangeFilterFormState(true);
+
+    // Добавления обработчиков на форму
+    window.form.addListenersToAdForm();
 
     // Показываем карту
     document.querySelector('.map').classList.remove('map--faded');
@@ -51,32 +69,17 @@
     // Показываем метки
     window.pin.createMapElements();
 
-    // Активируем форму
-    adForm.classList.remove('ad-form--disabled');
-    removeAttributeAdFormElements(adFormInputs);
-    removeAttributeAdFormElements(adFormSelects);
-    removeAttributeAdFormElements(adFormTextareas);
-    removeAttributeAdFormElements(adFormButtons);
+    // Добавляем обработчики событий карты
+    window.card.addMapListeners();
 
-    isActivePage = true;
-    window.form.setAddressField();
+    // Удаляем обработчики на главном пине после первого нажатия на него
+    removeListenersToMainPin();
+
+    // Вешаем обработчик перетаскивания главного пина
+    window.form.mainPin.addEventListener('mousedown', window.movement.onClickActiveMainPin);
   };
 
-  // Проверка на нажатие левой кнопки мыши
-  mapPinMain.addEventListener('mousedown', function (evt) {
-    if (evt.button === LEFT_MOUSE_BUTTON) {
-      activatePage();
-    }
-  });
+  // При загрузке, страница должна быть не активна поэтому вызываем функцию
+  deactivatePage();
 
-  // Проверка на нажатие улавиши "Enter"
-  mapPinMain.addEventListener('keydown', function (evt) {
-    if (evt.key === ENTER_KEY) {
-      activatePage();
-    }
-  });
-
-  window.page = {
-    isActivePage: isActivePage
-  };
 })();

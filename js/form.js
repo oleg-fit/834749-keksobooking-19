@@ -1,6 +1,10 @@
 'use strict';
 
 (function () {
+  var MAIN_PIN_INACTIVE_RADIUS = 32;
+  var MAIN_PIN_WIDTH = 64;
+  var MAIN_PIN_HEIGHT = 86;
+
   var adForm = document.querySelector('.ad-form');
   var adFormButtonSubmit = adForm.querySelector('.ad-form__submit');
   var adFormSelectRoomNumber = adForm.querySelector('#room_number');
@@ -12,17 +16,52 @@
   var adFormselectTimein = adForm.querySelector('#timein');
   var adFormselectTimeout = adForm.querySelector('#timeout');
   var adFormFieldAddress = adForm.querySelector('#address');
+  var adFormAllFieldset = adForm.querySelectorAll('fieldset');
 
-  // var mainPin = document.querySelector('.map__pin--main');
+  var mainPin = document.querySelector('.map__pin--main');
 
-  // Заполнение координатами поля адрес
-  var setAddressField = function () {
-    if (window.page.isActivePage) {
-      // adFormFieldAddress.value = (mainPin.offsetLeft +  / 2) + ', ' + (mainPin.offsetTop + );
-      adFormFieldAddress.value = 50 + ', ' + 50;
+  // Функция добавляет атрибуты disabled
+  var addAttributeFormElements = function (arr) {
+    for (var j = 0; j < arr.length; j++) {
+      arr[j].setAttribute('disabled', 'disabled');
+    }
+  };
+
+  // Функция удаляет атрибуты disabled
+  var removeAttributeFormElements = function (arr) {
+    for (var j = 0; j < arr.length; j++) {
+      arr[j].removeAttribute('disabled', 'disabled');
+    }
+  };
+
+  // Функция активирует поля формы
+  var activateAdForm = function () {
+    removeAttributeFormElements(adFormAllFieldset);
+  };
+
+  // Функция деактивирует поля формы
+  var deactivateAdForm = function () {
+    addAttributeFormElements(adFormAllFieldset);
+  };
+
+  // Фунция для изменения состояния формы
+  var сhangeAdFormState = function (state) {
+    if (state) {
+      activateAdForm();
+      adForm.classList.remove('ad-form--disabled');
     } else {
-      adFormFieldAddress.value = 100 + ', ' + 100;
-      // adFormFieldAddress.value = (mainPin.offsetLeft + ) + ', ' + (mainPin.offsetTop + );
+      deactivateAdForm();
+      adForm.classList.add('ad-form--disabled');
+    }
+    adFormFieldAddress.setAttribute('readonly', 'readonly');
+  };
+
+  // Заполняет поле адреса
+  var setAddressField = function (state) {
+    if (state) {
+      adFormFieldAddress.value = (mainPin.offsetLeft + MAIN_PIN_WIDTH / 2) + ', ' + (mainPin.offsetTop + MAIN_PIN_HEIGHT);
+    } else {
+      adFormFieldAddress.value = (mainPin.offsetLeft + MAIN_PIN_INACTIVE_RADIUS) + ', ' + (mainPin.offsetTop + MAIN_PIN_INACTIVE_RADIUS);
     }
   };
 
@@ -147,20 +186,26 @@
     adFormButtonSubmit.addEventListener('click', onAdFormButtonSubmitClick);
   };
 
-  addListenersToAdForm();
-
   // Функция для удаления обработчиков на форме
-  // var removeListenersToAdForm = function () {
-  //   adFormInputTitle.removeEventListener('input', onAdFormInputTitle);
-  //   adFormSelectType.removeEventListener('change', onAdFormTypeChange);
-  //   adFormInputPrice.removeEventListener('input', onAdFormPriceInput);
-  //   adFormSelectRoomNumber.removeEventListener('change', onAdFormSelectRoomChange);
-  //   adFormSelectRoomCapacity.removeEventListener('change', onAdFormSelectCapacityChange);
-  //   adFormSelectTime.removeEventListener('change', onAdFormTimeChange);
-  //   adFormButtonSubmit.removeEventListener('click', onAdFormButtonSubmitClick);
-  // };
+  var removeListenersToAdForm = function () {
+    adFormInputTitle.removeEventListener('input', onAdFormInputTitle);
+    adFormSelectType.removeEventListener('change', onAdFormTypeChange);
+    adFormInputPrice.removeEventListener('input', onAdFormPriceInput);
+    adFormSelectRoomNumber.removeEventListener('change', onAdFormSelectRoomChange);
+    adFormSelectRoomCapacity.removeEventListener('change', onAdFormSelectCapacityChange);
+    adFormSelectTime.removeEventListener('change', onAdFormTimeChange);
+    adFormButtonSubmit.removeEventListener('click', onAdFormButtonSubmitClick);
+  };
 
   window.form = {
-    setAddressField: setAddressField
+    mainPin: mainPin,
+    addAttributeFormElements: addAttributeFormElements,
+    removeAttributeFormElements: removeAttributeFormElements,
+    сhangeAdFormState: сhangeAdFormState,
+    addListenersToAdForm: addListenersToAdForm,
+    removeListenersToAdForm: removeListenersToAdForm,
+    setAddressField: setAddressField,
+    MAIN_PIN_WIDTH: MAIN_PIN_WIDTH,
+    MAIN_PIN_HEIGHT: MAIN_PIN_HEIGHT
   };
 })();

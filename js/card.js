@@ -207,5 +207,4 @@
     ESC_KEY: ESC_KEY,
     LEFT_MOUSE_BUTTON: LEFT_MOUSE_BUTTON
   };
-
 })();

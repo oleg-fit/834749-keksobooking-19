@@ -33,6 +33,9 @@
     // Деактивируем форму
     window.form.сhangeAdFormState(false);
 
+    // Деактивируем фильтр
+    window.filter.сhangeFilterFormState(false);
+
     // Удаляем обработчиков на форму
     window.form.removeListenersToAdForm();
 
@@ -43,7 +46,7 @@
     addListenersToMainPin();
 
     // Вешаем обработчик перетаскивания главного пина
-    // window.movement.addListenersToMainPinMove();
+    window.form.mainPin.addEventListener('mousedown', window.movement.onClickActiveMainPin);
   };
 
   // Активация страницы
@@ -53,6 +56,9 @@
 
     // Активируем форму
     window.form.сhangeAdFormState(true);
+
+    // Активируем фильтр
+    window.filter.сhangeFilterFormState(true);
 
     // Добавления обработчиков на форму
     window.form.addListenersToAdForm();
@@ -70,7 +76,7 @@
     removeListenersToMainPin();
 
     // Вешаем обработчик перетаскивания главного пина
-    window.movement.addListenersToMainPinMove();
+    window.form.mainPin.addEventListener('mousedown', window.movement.onClickActiveMainPin);
   };
 
   // При загрузке, страница должна быть не активна поэтому вызываем функцию

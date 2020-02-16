@@ -21,14 +21,14 @@
   var mainPin = document.querySelector('.map__pin--main');
 
   // Функция добавляет атрибуты disabled
-  var addAttributeAdFormElements = function (arr) {
+  var addAttributeFormElements = function (arr) {
     for (var j = 0; j < arr.length; j++) {
       arr[j].setAttribute('disabled', 'disabled');
     }
   };
 
   // Функция удаляет атрибуты disabled
-  var removeAttributeAdFormElements = function (arr) {
+  var removeAttributeFormElements = function (arr) {
     for (var j = 0; j < arr.length; j++) {
       arr[j].removeAttribute('disabled', 'disabled');
     }
@@ -36,12 +36,12 @@
 
   // Функция активирует поля формы
   var activateAdForm = function () {
-    removeAttributeAdFormElements(adFormAllFieldset);
+    removeAttributeFormElements(adFormAllFieldset);
   };
 
   // Функция деактивирует поля формы
   var deactivateAdForm = function () {
-    addAttributeAdFormElements(adFormAllFieldset);
+    addAttributeFormElements(adFormAllFieldset);
   };
 
   // Фунция для изменения состояния формы
@@ -199,6 +199,8 @@
 
   window.form = {
     mainPin: mainPin,
+    addAttributeFormElements: addAttributeFormElements,
+    removeAttributeFormElements: removeAttributeFormElements,
     сhangeAdFormState: сhangeAdFormState,
     addListenersToAdForm: addListenersToAdForm,
     removeListenersToAdForm: removeListenersToAdForm,

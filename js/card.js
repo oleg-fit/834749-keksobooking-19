@@ -117,8 +117,10 @@
     var offerCard = document.querySelector('.map__card');
 
     if (offerCard) {
-      offerCard.removeEventListener('click', onCardCloseClikLeftMouseButton);
-      offerCard.removeEventListener('click', onCardCloseEnterKeydown);
+      var popupCardCloseButton = offerCard.querySelector('.popup__close');
+
+      popupCardCloseButton.removeEventListener('click', onCardCloseClikLeftMouseButton);
+      popupCardCloseButton.removeEventListener('keydown', onCardCloseEnterKeydown);
       offerCard.parentElement.removeChild(offerCard);
     }
   };
@@ -129,24 +131,23 @@
     mapFiltersContainer.parentNode.insertBefore(renderOneOfferCard(window.data.creatAdvertisement[idIndex]), mapFiltersContainer);
 
     var offerCard = document.querySelector('.map__card');
+    var popupCardCloseButton = offerCard.querySelector('.popup__close');
 
-    offerCard.addEventListener('click', onCardCloseClikLeftMouseButton);
-    offerCard.addEventListener('click', onCardCloseEnterKeydown);
+    popupCardCloseButton.addEventListener('click', onCardCloseClikLeftMouseButton);
+    popupCardCloseButton.addEventListener('keydown', onCardCloseEnterKeydown);
   };
 
   // ============================================== Обработчики закртыия карточки предложения=============
+  // Обработчик закрытия карточки по нажатию на крестик(левая кнопка мыши)
   var onCardCloseClikLeftMouseButton = function (evt) {
     if (evt.key === LEFT_MOUSE_BUTTON) {
-      // var closeButton = document.querySelector('.popup__close');
-
       closeOfferCard();
     }
   };
 
+  // Обработчик закрытия карточки по нажатию на крестик(клавиша ENTER)
   var onCardCloseEnterKeydown = function (evt) {
     if (evt.key === ENTER_KEY) {
-      // var closeButton = document.querySelector('.popup__close');
-
       closeOfferCard();
     }
   };
@@ -167,7 +168,7 @@
       var elementTargetId = elementTarget.getAttribute('id');
       var idIndex = parseFloat(elementTargetId);
       openOfferCard(idIndex);
-      // evt.stopPropagation();
+      evt.stopPropagation();
     }
   };
 
@@ -180,7 +181,7 @@
         var elementTargetId = elementTarget.getAttribute('id');
         var idIndex = parseFloat(elementTargetId);
         openOfferCard(idIndex);
-        // evt.stopPropagation();
+        evt.stopPropagation();
       }
     }
   };

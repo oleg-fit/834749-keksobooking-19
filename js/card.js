@@ -140,7 +140,7 @@
   // ============================================== Обработчики закртыия карточки предложения=============
   // Обработчик закрытия карточки по нажатию на крестик(левая кнопка мыши)
   var onCardCloseClikLeftMouseButton = function (evt) {
-    if (evt.key === LEFT_MOUSE_BUTTON) {
+    if (evt.button === LEFT_MOUSE_BUTTON) {
       closeOfferCard();
     }
   };

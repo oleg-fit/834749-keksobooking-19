@@ -204,6 +204,8 @@
     сhangeAdFormState: сhangeAdFormState,
     addListenersToAdForm: addListenersToAdForm,
     removeListenersToAdForm: removeListenersToAdForm,
-    setAddressField: setAddressField
+    setAddressField: setAddressField,
+    MAIN_PIN_WIDTH: MAIN_PIN_WIDTH,
+    MAIN_PIN_HEIGHT: MAIN_PIN_HEIGHT
   };
 })();

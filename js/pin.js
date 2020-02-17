@@ -34,6 +34,18 @@
     mapPins.appendChild(fragment);
   };
 
+  // ==================================От сервака
+  // window.load(function (pin) {
+  //   var fragment = document.createDocumentFragment();
+
+  //   for (var i = 0; i < MAX_ADVERTISEMENT_QUANTITY; i++) {
+  //     fragment.appendChild(renderPin(pin[i]));
+  //   }
+
+  //   mapPins.appendChild(fragment);
+  // });
+  // ==================================От сервака
+
   window.pin = {
     createMapElements: createMapElements,
     MAX_ADVERTISEMENT_QUANTITY: MAX_ADVERTISEMENT_QUANTITY

@@ -36,6 +36,9 @@
 
   window.pin = {
     createMapElements: createMapElements,
-    MAX_ADVERTISEMENT_QUANTITY: MAX_ADVERTISEMENT_QUANTITY
+    MAX_ADVERTISEMENT_QUANTITY: MAX_ADVERTISEMENT_QUANTITY,
+    renderPin: renderPin
   };
+
+
 })();

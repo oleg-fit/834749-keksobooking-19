@@ -48,17 +48,9 @@
     xhr.send(data);
   };
 
-  var objectsArray = [];
-
-  var onSuccess = function (data) {
-    objectsArray = data;
-    return objectsArray;
-  };
-
-  window.request = {
+  window.load = {
     getData: getData,
-    saveData: saveData,
-    onSuccess: onSuccess
+    saveData: saveData
   };
 
 })();

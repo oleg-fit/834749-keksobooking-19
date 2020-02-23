@@ -2,13 +2,13 @@
 
 (function () {
   var onFirstClickMainPin = function (evt) {
-    if (evt.button === window.card.LEFT_MOUSE_BUTTON) {
+    if (evt.button === window.message.LEFT_MOUSE_BUTTON) {
       activatePage();
     }
   };
 
   var onFirstKeydownMainPin = function (evt) {
-    if (evt.key === window.card.ENTER_KEY) {
+    if (evt.key === window.message.ENTER_KEY) {
       activatePage();
     }
   };

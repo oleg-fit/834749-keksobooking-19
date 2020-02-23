@@ -15,8 +15,11 @@
   var adFormSelectTime = adForm.querySelector('.ad-form__element--time');
   var adFormselectTimein = adForm.querySelector('#timein');
   var adFormselectTimeout = adForm.querySelector('#timeout');
+  var adFormSelectDescription = adForm.querySelector('#description');
+  var adFormResetButton = adForm.querySelector('.ad-form__reset');
   var adFormFieldAddress = adForm.querySelector('#address');
   var adFormAllFieldset = adForm.querySelectorAll('fieldset');
+  var adFormAllFeatures = adForm.querySelectorAll('.feature__checkbox');
 
   var mainPin = document.querySelector('.map__pin--main');
 
@@ -174,6 +177,29 @@
     validateAdFormInputPriceAndType();
     validateAdFormCapacity();
   };
+
+
+  // =======================================================================
+  var resetForm = function () {
+    adFormInputTitle.value = '';
+    adFormSelectType.value = 'flat';
+    adFormInputPrice.value = '';
+    adFormInputPrice.placeholder = '5000';
+    adFormSelectRoomNumber.value = '1';
+    adFormSelectRoomCapacity.value = '3';
+    adFormSelectDescription.value = '';
+    adFormselectTimein.value = '12:00';
+    adFormselectTimeout.value = '12:00';
+
+    for (var i = 0; i < adFormAllFeatures.length; i++) {
+      adFormAllFeatures[i].checked = false;
+    }
+  };
+
+  adFormResetButton.addEventListener('click', function (evt) {
+    evt.preventDefault();
+    resetForm();
+  });
 
   // Функция для добавления обработчиков на форму
   var addListenersToAdForm = function () {

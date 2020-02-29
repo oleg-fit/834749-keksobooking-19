@@ -2,13 +2,13 @@
 
 (function () {
   var onFirstClickMainPin = function (evt) {
-    if (evt.button === window.card.LEFT_MOUSE_BUTTON) {
+    if (evt.button === window.message.LEFT_MOUSE_BUTTON) {
       activatePage();
     }
   };
 
   var onFirstKeydownMainPin = function (evt) {
-    if (evt.key === window.card.ENTER_KEY) {
+    if (evt.key === window.message.ENTER_KEY) {
       activatePage();
     }
   };
@@ -38,6 +38,12 @@
 
     // Удаляем обработчиков на форму
     window.form.removeListenersToAdForm();
+
+    // Закрываем карту
+    document.querySelector('.map').classList.add('map--faded');
+
+    // Удаляем пины
+    window.pin.removePins();
 
     // Удаляем обработчики событий карты
     window.card.removeMapListeners();
@@ -81,5 +87,9 @@
 
   // При загрузке, страница должна быть не активна поэтому вызываем функцию
   deactivatePage();
+
+  window.page = {
+    deactivatePage: deactivatePage
+  };
 
 })();

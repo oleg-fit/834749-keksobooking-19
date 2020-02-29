@@ -1,10 +1,6 @@
 'use strict';
 
 (function () {
-  var ENTER_KEY = 'Enter';
-  var ESC_KEY = 'Escape';
-  var LEFT_MOUSE_BUTTON = 0;
-
   var mapFiltersContainer = document.querySelector('.map__filters-container');
   var templateCard = document.querySelector('#card').content.querySelector('.map__card');
   var mapPins = document.querySelector('.map__pins');
@@ -140,21 +136,21 @@
   // ============================================== Обработчики закртыия карточки предложения=============
   // Обработчик закрытия карточки по нажатию на крестик(левая кнопка мыши)
   var onCardCloseClikLeftMouseButton = function (evt) {
-    if (evt.button === LEFT_MOUSE_BUTTON) {
+    if (evt.button === window.message.LEFT_MOUSE_BUTTON) {
       closeOfferCard();
     }
   };
 
   // Обработчик закрытия карточки по нажатию на крестик(клавиша ENTER)
   var onCardCloseEnterKeydown = function (evt) {
-    if (evt.key === ENTER_KEY) {
+    if (evt.key === window.message.ENTER_KEY) {
       closeOfferCard();
     }
   };
 
   // Обработчик закрытия по нажатию на ESC
   var onCardCloseEscKeydown = function (evt) {
-    if (evt.key === ESC_KEY) {
+    if (evt.key === window.message.ESC_KEY) {
       closeOfferCard();
     }
   };
@@ -174,7 +170,7 @@
 
   // Обработчик открытия карточки предложения по нажатию ENTER
   var onMapKeydown = function (evt) {
-    if (evt.key === ENTER_KEY) {
+    if (evt.key === window.message.ENTER_KEY) {
       var elementTarget = evt.target.closest('button');
 
       if (elementTarget && !elementTarget.classList.contains('map__pin--main')) {
@@ -203,8 +199,5 @@
   window.card = {
     addMapListeners: addMapListeners,
     removeMapListeners: removeMapListeners,
-    ENTER_KEY: ENTER_KEY,
-    ESC_KEY: ESC_KEY,
-    LEFT_MOUSE_BUTTON: LEFT_MOUSE_BUTTON
   };
 })();

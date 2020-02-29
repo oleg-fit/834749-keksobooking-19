@@ -178,7 +178,6 @@
     validateAdFormCapacity();
   };
 
-
   // =======================================================================
   var resetForm = function () {
     adFormInputTitle.value = '';
@@ -223,7 +222,26 @@
     adFormButtonSubmit.removeEventListener('click', onAdFormButtonSubmitClick);
   };
 
+  // =============================================================
+  var onSuccess = function () {
+    window.message.showSuccessMessage();
+    window.page.deactivatePage();
+  };
+
+  var onError = function () {
+    window.message.showErrorMessage();
+  };
+
+  function adFormSubmit(evt) {
+    evt.preventDefault();
+
+    window.load.saveData(onSuccess, onError, new FormData(adForm));
+  }
+
+  // =============================================================
+
   window.form = {
+    adFormSubmit: adFormSubmit,
     mainPin: mainPin,
     addAttributeFormElements: addAttributeFormElements,
     removeAttributeFormElements: removeAttributeFormElements,

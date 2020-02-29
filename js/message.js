@@ -43,6 +43,7 @@
     document.addEventListener('click', onDocumentClick);
   };
 
+
   // Функция для показа сообщения, при успешной отправки формы
 
   var showSuccessMessage = function () {
@@ -69,7 +70,6 @@
     document.addEventListener('keydown', onDocumentKeydown);
     document.addEventListener('click', onDocumentClick);
   };
-
 
   window.message = {
     showErrorMessage: showErrorMessage,

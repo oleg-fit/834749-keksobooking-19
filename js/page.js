@@ -39,6 +39,12 @@
     // Удаляем обработчиков на форму
     window.form.removeListenersToAdForm();
 
+    // Закрываем карту
+    document.querySelector('.map').classList.add('map--faded');
+
+    // Удаляем пины
+    window.pin.removePins();
+
     // Удаляем обработчики событий карты
     window.card.removeMapListeners();
 
@@ -81,5 +87,9 @@
 
   // При загрузке, страница должна быть не активна поэтому вызываем функцию
   deactivatePage();
+
+  window.page = {
+    deactivatePage: deactivatePage
+  };
 
 })();

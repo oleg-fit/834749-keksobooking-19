@@ -33,7 +33,18 @@
     mapPins.appendChild(fragment);
   };
 
+  // Удаление пинов
+  var removePins = function () {
+    var pins = mapPins.querySelectorAll('.map__pin');
+    for (var i = 0; i < pins.length; i++) {
+      if (!pins[i].classList.contains('map__pin--main')) {
+        mapPins.removeChild(pins[i]);
+      }
+    }
+  };
+
   window.pin = {
+    removePins: removePins,
     createMapElements: createMapElements,
     MAX_ADVERTISEMENT_QUANTITY: MAX_ADVERTISEMENT_QUANTITY,
   };

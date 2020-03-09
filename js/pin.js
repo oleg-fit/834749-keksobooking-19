@@ -35,7 +35,6 @@
         fragment.appendChild(renderPin(window.data.serverAdvertisment[j], j));
       }
     }
-
     mapPins.appendChild(fragment);
   };
 

@@ -235,7 +235,7 @@
   function adFormSubmit(evt) {
     evt.preventDefault();
 
-    window.load.saveData(onSuccess, onError, new FormData(adForm));
+    window.backend.saveData(onSuccess, onError, new FormData(adForm));
   }
 
   // =============================================================

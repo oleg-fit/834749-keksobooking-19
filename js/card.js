@@ -124,7 +124,12 @@
   // Функция для открытия карточки предложения
   var openOfferCard = function (idIndex) {
     closeOfferCard();
-    mapFiltersContainer.parentNode.insertBefore(renderOneOfferCard(window.data.serverAdvertisment[idIndex]), mapFiltersContainer);
+
+    if (window.filter.dataSort && window.filter.dataSort.length > 0) {
+      mapFiltersContainer.parentNode.insertBefore(renderOneOfferCard(window.filter.dataSort[idIndex]), mapFiltersContainer);
+    } else {
+      mapFiltersContainer.parentNode.insertBefore(renderOneOfferCard(window.data.serverAdvertisment[idIndex]), mapFiltersContainer);
+    }
 
     var offerCard = document.querySelector('.map__card');
     var popupCardCloseButton = offerCard.querySelector('.popup__close');

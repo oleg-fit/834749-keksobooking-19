@@ -9,6 +9,6 @@
     };
   };
 
-  window.load.getData(onSuccess, false);
+  window.backend.getData(onSuccess, false);
 
 })();

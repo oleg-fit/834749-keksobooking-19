@@ -201,6 +201,8 @@
     mapPins.removeEventListener('keydown', onMapKeydown);
   };
 
+  //  asdljfsdkjdsgojdas;kjas;lkdasnd;adsf;nasdg;madsg;adsg;g;
+
   window.card = {
     addMapListeners: addMapListeners,
     removeMapListeners: removeMapListeners,

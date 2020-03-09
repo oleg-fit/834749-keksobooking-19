@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var MAX_ADVERTISEMENT_QUANTITY = 5;
+  var MAX_ADVERTISEMENT_QUANTITY = 4;
 
   var mapPins = document.querySelector('.map__pins');
   var templatePin = document.querySelector('#pin').content.querySelector('.map__pin');

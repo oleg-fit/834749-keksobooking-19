@@ -40,7 +40,6 @@
   };
 
   var filterTheForm = function () {
-
     // Делаем копию данных
     var copyData = window.data.serverAdvertisment.slice();
 
@@ -74,26 +73,16 @@
     };
 
     // Фильтр по удобствам
-    var filterHousingFeatures = function (element) {
-      var filterResult = true;
+    var filterHousingFeatures = function (item) {
+      var selectedFeatures = Array.from(mapFilterFeaturesList.querySelectorAll('input:checked'));
 
-      for (var i = 0; i < mapFilterFeaturesList.length; i++) {
-
-        if (mapFilterFeaturesList[i].checked) {
-
-          if (element.offer.features.indexOf(mapFilterFeaturesList[i].value) === -1) {
-
-            filterResult = false;
-            break;
-          }
-        }
-      }
-      return filterResult;
+      return selectedFeatures.every(function (element) {
+        return item.offer.features.includes(element.value);
+      });
     };
 
     // Проверяем есть ли значение advertisment.filterScore
     var addFilterScoresToAdvertisment = function (advertisment) {
-
       if (advertisment.filterScore !== undefined) {
         advertisment.filterScore += 1;
       } else {

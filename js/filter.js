@@ -165,7 +165,6 @@
     resetFilterScores(window.data.serverAdvertisment);
   };
 
-
   window.filter = {
     сhangeFilterFormState: сhangeFilterFormState,
     filterTheForm: filterTheForm,

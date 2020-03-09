@@ -171,12 +171,37 @@
     }
   };
 
+  // Обработчик полей "Количество комнат" и "Количество мест"
+  // var onAdFormGuestChange = function () {
+  //   var сapacityOptions = adFormSelectRoomCapacity.querySelectorAll('option');
+
+  //   if (+adFormSelectRoomNumber.value === 1) {
+
+  //     for (var i = 0; i < сapacityOptions.length; i++) {
+  //       if (сapacityOptions[i].value !== 1) {
+  //         delete сapacityOptions[i];
+  //       }
+  //     }
+
+
+  //   } else if  (+adFormSelectRoomNumber.value === 2) {
+  //     console.log(2);
+
+  //   } else if (+adFormSelectRoomNumber.value === 3) {
+  //     console.log(3);
+
+  //   } else if (+adFormSelectRoomNumber.value === 100) {
+  //     console.log(100);
+  //   }
+  // };
+
   // Обработчик кнопки "Опубликовать"
   var onAdFormButtonSubmitClick = function () {
     validateAdFormInputTitle();
     validateAdFormInputPriceAndType();
     validateAdFormCapacity();
   };
+
 
   // =======================================================================
   var resetForm = function () {
@@ -209,6 +234,9 @@
     adFormSelectRoomCapacity.addEventListener('change', onAdFormSelectCapacityChange);
     adFormSelectTime.addEventListener('change', onAdFormTimeChange);
     adFormButtonSubmit.addEventListener('click', onAdFormButtonSubmitClick);
+
+
+    // adFormSelectRoomNumber.addEventListener('change', onAdFormGuestChange);
   };
 
   // Функция для удаления обработчиков на форме

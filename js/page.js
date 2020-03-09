@@ -83,6 +83,8 @@
 
     // Вешаем обработчик перетаскивания главного пина
     window.form.mainPin.addEventListener('mousedown', window.movement.onClickActiveMainPin);
+
+    window.filter.mapFilter.addEventListener('change', window.filter.filterTheForm);
   };
 
   // При загрузке, страница должна быть не активна поэтому вызываем функцию

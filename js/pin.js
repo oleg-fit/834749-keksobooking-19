@@ -26,8 +26,14 @@
 
     var fragment = document.createDocumentFragment();
 
-    for (var i = 0; i <= MAX_ADVERTISEMENT_QUANTITY; i++) {
-      fragment.appendChild(renderPin(window.data.serverAdvertisment[i], i));
+    if (window.filter.dataSort && window.filter.dataSort.length > 0) {
+      for (var i = 0; i <= (window.filter.dataSort.length < MAX_ADVERTISEMENT_QUANTITY ? (window.filter.dataSort.lenght) : MAX_ADVERTISEMENT_QUANTITY); i++) {
+        fragment.appendChild(renderPin(window.filter.dataSort[i], i));
+      }
+    } else {
+      for (var j = 0; j <= MAX_ADVERTISEMENT_QUANTITY; j++) {
+        fragment.appendChild(renderPin(window.data.serverAdvertisment[j], j));
+      }
     }
 
     mapPins.appendChild(fragment);

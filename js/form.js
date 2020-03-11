@@ -172,28 +172,49 @@
   };
 
   // Обработчик полей "Количество комнат" и "Количество мест"
-  // var onAdFormGuestChange = function () {
-  //   var сapacityOptions = adFormSelectRoomCapacity.querySelectorAll('option');
+  var onAdFormGuestChange = function () {
+    var сapacityOptions = adFormSelectRoomCapacity.querySelectorAll('option');
 
-  //   if (+adFormSelectRoomNumber.value === 1) {
+    сapacityOptions[2].selected = true;
 
-  //     for (var i = 0; i < сapacityOptions.length; i++) {
-  //       if (сapacityOptions[i].value !== 1) {
-  //         delete сapacityOptions[i];
-  //       }
-  //     }
+    if (+adFormSelectRoomNumber.value === 1) {
+      removeAttributeFormElements(сapacityOptions);
 
+      for (var j = 0; j < сapacityOptions.length; j++) {
+        if (j !== 2) {
+          сapacityOptions[j].setAttribute('disabled', 'disabled');
+        }
+      }
 
-  //   } else if  (+adFormSelectRoomNumber.value === 2) {
-  //     console.log(2);
+    } else if (+adFormSelectRoomNumber.value === 2) {
+      removeAttributeFormElements(сapacityOptions);
 
-  //   } else if (+adFormSelectRoomNumber.value === 3) {
-  //     console.log(3);
+      for (var k = 0; k < сapacityOptions.length; k++) {
+        if (k !== 1 && k !== 2) {
+          сapacityOptions[k].setAttribute('disabled', 'disabled');
+        }
+      }
 
-  //   } else if (+adFormSelectRoomNumber.value === 100) {
-  //     console.log(100);
-  //   }
-  // };
+    } else if (+adFormSelectRoomNumber.value === 3) {
+      removeAttributeFormElements(сapacityOptions);
+
+      for (var l = 0; l < сapacityOptions.length; l++) {
+        if (l === 3) {
+          сapacityOptions[l].setAttribute('disabled', 'disabled');
+        }
+      }
+
+    } else if (+adFormSelectRoomNumber.value === 100) {
+      removeAttributeFormElements(сapacityOptions);
+      сapacityOptions[3].selected = true;
+
+      for (var c = 0; l < сapacityOptions.length; c++) {
+        if (c === 3) {
+          сapacityOptions[c].setAttribute('disabled', 'disabled');
+        }
+      }
+    }
+  };
 
   // Обработчик кнопки "Опубликовать"
   var onAdFormButtonSubmitClick = function () {
@@ -236,7 +257,7 @@
     adFormButtonSubmit.addEventListener('click', onAdFormButtonSubmitClick);
 
 
-    // adFormSelectRoomNumber.addEventListener('change', onAdFormGuestChange);
+    adFormSelectRoomNumber.addEventListener('change', onAdFormGuestChange);
   };
 
   // Функция для удаления обработчиков на форме

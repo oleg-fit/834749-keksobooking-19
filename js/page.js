@@ -66,6 +66,8 @@
     // Активируем фильтр
     window.filter.сhangeFilterFormState(true);
 
+    window.form.checkStandardValuesForm();
+
     // Добавления обработчиков на форму
     window.form.addListenersToAdForm();
 

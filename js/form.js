@@ -18,6 +18,7 @@
   var adFormSelectDescription = adForm.querySelector('#description');
   var adFormResetButton = adForm.querySelector('.ad-form__reset');
   var adFormFieldAddress = adForm.querySelector('#address');
+  var сapacityOptions = adFormSelectRoomCapacity.querySelectorAll('option');
   var adFormAllFieldset = adForm.querySelectorAll('fieldset');
   var adFormAllFeatures = adForm.querySelectorAll('.feature__checkbox');
 
@@ -171,10 +172,18 @@
     }
   };
 
+  var checkStandardValuesForm = function () {
+    adFormSelectRoomCapacity.value = '1';
+
+    for (var j = 0; j < сapacityOptions.length; j++) {
+      if (j !== 2) {
+        сapacityOptions[j].setAttribute('disabled', 'disabled');
+      }
+    }
+  };
+
   // Обработчик полей "Количество комнат" и "Количество мест"
   var onAdFormGuestChange = function () {
-    var сapacityOptions = adFormSelectRoomCapacity.querySelectorAll('option');
-
     adFormSelectRoomCapacity.value = '1';
 
     if (+adFormSelectRoomNumber.value === 1) {
@@ -289,6 +298,7 @@
     addAttributeFormElements: addAttributeFormElements,
     removeAttributeFormElements: removeAttributeFormElements,
     сhangeAdFormState: сhangeAdFormState,
+    checkStandardValuesForm: checkStandardValuesForm,
     addListenersToAdForm: addListenersToAdForm,
     removeListenersToAdForm: removeListenersToAdForm,
     setAddressField: setAddressField,

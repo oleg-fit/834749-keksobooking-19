@@ -175,7 +175,7 @@
   var onAdFormGuestChange = function () {
     var сapacityOptions = adFormSelectRoomCapacity.querySelectorAll('option');
 
-    сapacityOptions[2].selected = true;
+    adFormSelectRoomCapacity.value = '1';
 
     if (+adFormSelectRoomNumber.value === 1) {
       removeAttributeFormElements(сapacityOptions);
@@ -206,11 +206,11 @@
 
     } else if (+adFormSelectRoomNumber.value === 100) {
       removeAttributeFormElements(сapacityOptions);
-      сapacityOptions[3].selected = true;
+      adFormSelectRoomCapacity.value = '0';
 
-      for (var c = 0; l < сapacityOptions.length; c++) {
-        if (c === 3) {
-          сapacityOptions[c].setAttribute('disabled', 'disabled');
+      for (var z = 0; z < сapacityOptions.length; z++) {
+        if (z !== 3) {
+          сapacityOptions[z].setAttribute('disabled', 'disabled');
         }
       }
     }
@@ -223,15 +223,13 @@
     validateAdFormCapacity();
   };
 
-
-  // =======================================================================
   var resetForm = function () {
     adFormInputTitle.value = '';
     adFormSelectType.value = 'flat';
     adFormInputPrice.value = '';
     adFormInputPrice.placeholder = '5000';
     adFormSelectRoomNumber.value = '1';
-    adFormSelectRoomCapacity.value = '3';
+    adFormSelectRoomCapacity.value = '1';
     adFormSelectDescription.value = '';
     adFormselectTimein.value = '12:00';
     adFormselectTimeout.value = '12:00';
@@ -255,8 +253,6 @@
     adFormSelectRoomCapacity.addEventListener('change', onAdFormSelectCapacityChange);
     adFormSelectTime.addEventListener('change', onAdFormTimeChange);
     adFormButtonSubmit.addEventListener('click', onAdFormButtonSubmitClick);
-
-
     adFormSelectRoomNumber.addEventListener('change', onAdFormGuestChange);
   };
 
@@ -269,9 +265,9 @@
     adFormSelectRoomCapacity.removeEventListener('change', onAdFormSelectCapacityChange);
     adFormSelectTime.removeEventListener('change', onAdFormTimeChange);
     adFormButtonSubmit.removeEventListener('click', onAdFormButtonSubmitClick);
+    adFormSelectRoomNumber.removeEventListener('change', onAdFormGuestChange);
   };
 
-  // =============================================================
   var onSuccess = function () {
     window.message.showSuccessMessage();
     window.page.deactivatePage();
@@ -286,8 +282,6 @@
 
     window.backend.saveData(onSuccess, onError, new FormData(adForm));
   }
-
-  // =============================================================
 
   window.form = {
     adFormSubmit: adFormSubmit,

@@ -1,6 +1,9 @@
 'use strict';
 
 (function () {
+  // Дефолтное значение импутов
+  window.form.checkStandardValuesForm();
+
   var onFirstClickMainPin = function (evt) {
     if (evt.button === window.message.LEFT_MOUSE_BUTTON) {
       activatePage();
@@ -65,8 +68,6 @@
 
     // Активируем фильтр
     window.filter.сhangeFilterFormState(true);
-
-    window.form.checkStandardValuesForm();
 
     // Добавления обработчиков на форму
     window.form.addListenersToAdForm();
